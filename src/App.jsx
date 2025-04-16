@@ -8,7 +8,7 @@ import PopNewCard from "./components/PopUp/PopNewCard";
 function App() {
   return (
     <>
-      <div class="wrapper">
+      <div className="wrapper">
         {/* <!-- pop-up start--> */}
         <PopExit />
         <PopNewCard />
