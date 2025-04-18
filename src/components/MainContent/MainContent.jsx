@@ -1,13 +1,11 @@
 import Column from "../Column/Column";
-
+import { data } from "../../data";
 function MainContent() {
   return (
     <>
-      <Column />
-      <Column />
-      <Column />
-      <Column />
-      <Column />
+      {data.map((columnData) => (
+        <Column column={columnData} key={columnData.id} />
+      ))}
     </>
   );
 }

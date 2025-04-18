@@ -1,8 +1,8 @@
-function ColumnTitle() {
+function ColumnTitle({ topic }) {
   return (
     <>
       <div className="column__title">
-        <p>Без статуса</p>
+        <p>{topic}</p>
       </div>
     </>
   );
