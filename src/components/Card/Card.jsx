@@ -7,7 +7,6 @@ function Card({ cardData, columnData }) {
   const textDecor = {
     "Готово": "_done",
   };
-  console.log(columnData.topic);
   return (
     <>
       <div className="cards__item">
