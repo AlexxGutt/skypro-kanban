@@ -937,6 +937,9 @@ body {
   color: #000000;
   margin-bottom: 10px;
 }
+._done {
+  text-decoration: line-through;
+}
 .card__content {
   height: 64px;
   display: flex;

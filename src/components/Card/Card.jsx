@@ -1,9 +1,13 @@
-function Card({ cardData }) {
+function Card({ cardData, columnData }) {
   const topicColor = {
     "Web Design": "_orange",
-    Research: "_green",
-    Copywriting: "_purple",
+    "Research": "_green",
+    "Copywriting": "_purple",
   };
+  const textDecor = {
+    "Готово": "_done",
+  };
+  console.log(columnData.topic);
   return (
     <>
       <div className="cards__item">
@@ -22,7 +26,9 @@ function Card({ cardData }) {
           </div>
           <div className="card__content">
             <a href="" target="_blank">
-              <h3 className="card__title">{cardData.title}</h3>
+              <h3 className={`card__title ${textDecor[columnData.topic]}`}>
+                {cardData.title}
+              </h3>
             </a>
             <div className="card__date">
               <svg

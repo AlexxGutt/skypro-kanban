@@ -9,7 +9,7 @@ function Column({ column }) {
 
         <div className="cards">
           {column.cards.map((card) => (
-            <Card cardData={card} key={card.id} />
+            <Card cardData={card} columnData={column} key={card.id} />
           ))}
         </div>
       </div>
