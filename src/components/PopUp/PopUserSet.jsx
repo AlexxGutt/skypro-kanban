@@ -2,8 +2,8 @@ import { useEffect } from "react";
 function PopUserSet({ isClose }) {
   useEffect(() => {
     const handleClickOutside = (event) => {
-      const popup = document.getElementById("user-set-target");
-      if (popup && !popup.contains(event.target)) {
+      const popUp = document.getElementById("user-set-target");
+      if (popUp && !popUp.contains(event.target)) {
         isClose();
       }
     };
