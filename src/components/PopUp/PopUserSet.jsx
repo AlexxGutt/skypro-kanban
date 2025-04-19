@@ -1,8 +1,25 @@
-function PopUserSet() {
+import { useEffect } from "react";
+function PopUserSet({ isClose }) {
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      const popup = document.getElementById("user-set-target");
+      if (popup && !popup.contains(event.target)) {
+        isClose();
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [isClose]);
+
   return (
     <>
       <div className="header__pop-user-set pop-user-set" id="user-set-target">
-        <a href="">x</a>
+        <a className="close-position" onClick={isClose}>
+          x
+        </a>
         <p className="pop-user-set__name">Ivan Ivanov</p>
         <p className="pop-user-set__mail">ivan.ivanov@gmail.com</p>
         <div className="pop-user-set__theme">
