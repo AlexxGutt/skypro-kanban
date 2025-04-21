@@ -1,11 +1,16 @@
 import Column from "../Column/Column";
-import { data } from "../../data";
+import { dataColumn } from "../../dataColumn";
+import { cards } from "../../data";
+
 function MainContent() {
   return (
     <>
-      {data.map((columnData) => (
-        <Column column={columnData} key={columnData.id} />
-      ))}
+      {dataColumn.map((column) => {
+        const filterCards = cards.filter(
+          (card) => card.column === column.topic
+        );
+        return <Column column={column} key={column.id} cards={filterCards} />;
+      })}
     </>
   );
 }
