@@ -7,7 +7,7 @@ function MainContent() {
     <>
       {dataColumn.map((column) => {
         const filterCards = cards.filter(
-          (card) => card.column === column.topic
+          (card) => card.status === column.topic
         );
         return <Column column={column} key={column.id} cards={filterCards} />;
       })}
