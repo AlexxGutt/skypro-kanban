@@ -1,11 +1,19 @@
-function Card() {
+function Card({ cardData, columnData }) {
+  const topicColor = {
+    "Web Design": "_orange",
+    "Research": "_green",
+    "Copywriting": "_purple",
+  };
+  const textDecor = {
+    "Готово": "_done",
+  };
   return (
     <>
       <div className="cards__item">
         <div className="cards__card card">
           <div className="card__group">
-            <div className="card__theme _orange">
-              <p className="_orange">Web Design</p>
+            <div className={`card__theme ${topicColor[cardData.topic]}`}>
+              <p className={topicColor[cardData.topic]}>{cardData.topic}</p>
             </div>
             <a href="#popBrowse" target="_self">
               <div className="card__btn">
@@ -17,7 +25,9 @@ function Card() {
           </div>
           <div className="card__content">
             <a href="" target="_blank">
-              <h3 className="card__title">Название задачи</h3>
+              <h3 className={`card__title ${textDecor[columnData.topic]}`}>
+                {cardData.title}
+              </h3>
             </a>
             <div className="card__date">
               <svg
@@ -48,7 +58,7 @@ function Card() {
                   </clipPath>
                 </defs>
               </svg>
-              <p>30.10.23</p>
+              <p>{cardData.date}</p>
             </div>
           </div>
         </div>

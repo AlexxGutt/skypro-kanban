@@ -1,13 +1,14 @@
+import Loader from "../Loader/Loader";
 import MainContent from "../MainContent/MainContent";
 
-function Main() {
+function Main({ loading }) {
   return (
     <>
       <main className="main">
         <div className="container">
           <div className="main__block">
             <div className="main__content">
-              <MainContent />
+              {loading ? <Loader /> : <MainContent />}
             </div>
           </div>
         </div>
