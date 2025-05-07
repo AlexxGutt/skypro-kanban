@@ -1,14 +1,15 @@
 import PopUserSet from "../PopUp/PopUserSet";
 import { useState } from "react";
+import * as S from "./Header.style";
 function Header() {
   const [isOpen, setisOpen] = useState(false);
   const isClose = () => {
     setisOpen(false);
   };
   return (
-    <header className="header">
-      <div className="container">
-        <div className="header__block">
+    <S.header>
+      <S.conteiner>
+        <S.headerBlock>
           <div className="header__logo _show _light">
             <a href="" target="_self">
               <img src="images/logo.png" alt="logo" />
@@ -31,9 +32,9 @@ function Header() {
             </a>
             {isOpen ? <PopUserSet isClose={isClose} /> : ""}
           </nav>
-        </div>
-      </div>
-    </header>
+        </S.headerBlock>
+      </S.conteiner>
+    </S.header>
   );
 }
 
