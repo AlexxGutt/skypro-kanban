@@ -1,9 +1,10 @@
+import * as S from "./ColumnTitle.style";
 function ColumnTitle({ topic }) {
   return (
     <>
-      <div className="column__title">
+      <S.columnTitle>
         <p>{topic}</p>
-      </div>
+      </S.columnTitle>
     </>
   );
 }

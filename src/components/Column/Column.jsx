@@ -1,18 +1,18 @@
 import Card from "../Card/Card";
 import ColumnTitle from "../ColumnTitle/ColumnTitle";
-
+import * as S from "./Column.style";
 function Column({ column, cards }) {
   return (
     <>
-      <div className="main__column column">
+      <S.mainColumn>
         <ColumnTitle topic={column.topic} />
 
-        <div className="cards">
+        <S.cards>
           {cards.map((card) => (
             <Card cardData={card} columnData={column} key={card.id} />
           ))}
-        </div>
-      </div>
+        </S.cards>
+      </S.mainColumn>
     </>
   );
 }

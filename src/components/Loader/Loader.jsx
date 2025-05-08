@@ -1,7 +1,8 @@
+import * as S from "./Loader.style";
 function Loader() {
   return (
     <>
-      <div className="loader">Загрузка данных . . . .</div>
+      <S.loader>Загрузка данных . . . .</S.loader>
     </>
   );
 }

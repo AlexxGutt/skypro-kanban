@@ -1,35 +1,31 @@
+import * as S from "./Card.style";
 function Card({ cardData, columnData }) {
-  const topicColor = {
-    "Web Design": "_orange",
-    "Research": "_green",
-    "Copywriting": "_purple",
-  };
   const textDecor = {
-    "Готово": "_done",
+    "Готово": "line-through",
   };
   return (
     <>
-      <div className="cards__item">
-        <div className="cards__card card">
-          <div className="card__group">
-            <div className={`card__theme ${topicColor[cardData.topic]}`}>
-              <p className={topicColor[cardData.topic]}>{cardData.topic}</p>
-            </div>
+      <S.cardItem>
+        <S.card>
+          <S.cardGroup>
+            <S.cardTheme $topic={cardData.topic}>
+              <p>{cardData.topic}</p>
+            </S.cardTheme>
             <a href="#popBrowse" target="_self">
-              <div className="card__btn">
+              <S.cardBtn>
                 <div></div>
                 <div></div>
                 <div></div>
-              </div>
+              </S.cardBtn>
             </a>
-          </div>
-          <div className="card__content">
+          </S.cardGroup>
+          <S.cardContent>
             <a href="" target="_blank">
-              <h3 className={`card__title ${textDecor[columnData.topic]}`}>
+              <S.cardTitle $textDecoration={textDecor[columnData.topic]}>
                 {cardData.title}
-              </h3>
+              </S.cardTitle>
             </a>
-            <div className="card__date">
+            <S.cardDate>
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="13"
@@ -59,10 +55,10 @@ function Card({ cardData, columnData }) {
                 </defs>
               </svg>
               <p>{cardData.date}</p>
-            </div>
-          </div>
-        </div>
-      </div>
+            </S.cardDate>
+          </S.cardContent>
+        </S.card>
+      </S.cardItem>
     </>
   );
 }
