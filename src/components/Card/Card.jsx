@@ -1,10 +1,5 @@
 import * as S from "./Card.style";
 function Card({ cardData, columnData }) {
-  const topicColor = {
-    "Web Design": { backgroundColor: "#ffe4c2", color: "#ff6d00" },
-    "Research": { backgroundColor: "#b4fdd1", color: "#06b16e" },
-    "Copywriting": { backgroundColor: "#e9d4ff", color: "#9a48f1" },
-  };
   const textDecor = {
     "Готово": "line-through",
   };
@@ -13,10 +8,7 @@ function Card({ cardData, columnData }) {
       <S.cardItem>
         <S.card>
           <S.cardGroup>
-            <S.cardTheme
-              $background={topicColor[cardData.topic].backgroundColor}
-              $color={topicColor[cardData.topic].color}
-            >
+            <S.cardTheme $topic={cardData.topic}>
               <p>{cardData.topic}</p>
             </S.cardTheme>
             <a href="#popBrowse" target="_self">

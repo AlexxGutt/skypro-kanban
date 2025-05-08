@@ -1,5 +1,11 @@
 import styled from "styled-components";
 
+const topicColor = {
+  "Web Design": { backgroundColor: "#ffe4c2", color: "#ff6d00" },
+  "Research": { backgroundColor: "#b4fdd1", color: "#06b16e" },
+  "Copywriting": { backgroundColor: "#e9d4ff", color: "#9a48f1" },
+};
+
 export const card = styled.div`
   width: 220px;
   height: 130px;
@@ -27,9 +33,9 @@ export const cardTheme = styled.div`
   height: 20px;
   padding: 5px 14px;
   border-radius: 18px;
-  background-color: ${(props) => props.$background};
-  color: ${(props) => props.$color};
-  & p {
+  background-color: ${(props) => topicColor[props.$topic].backgroundColor};
+  color: ${(props) => topicColor[props.$topic].color};
+  p {
     font-size: 10px;
     font-weight: 600;
     line-height: 10px;
@@ -57,10 +63,10 @@ export const cardDate = styled.div`
   display: flex;
   align-items: center;
   justify-content: flex-start;
-  & svg {
+  svg {
     width: 13px;
   }
-  & p {
+  p {
     margin-left: 6px;
     font-size: 10px;
     line-height: 13px;
@@ -84,7 +90,7 @@ export const cardBtn = styled.div`
   align-items: center;
   justify-content: space-around;
   padding: 2px;
-  & div {
+  div {
     width: 4px;
     height: 4px;
     border-radius: 50%;
