@@ -1,4 +1,4 @@
-import "./App.css";
+import "../css/main.css";
 import Header from "./components/Header/Header";
 import Main from "./components/Main/Main";
 import PopBrowse from "./components/PopUp/PopBrowse";
