@@ -1,11 +1,11 @@
-import "../css/main.css";
+import { Wrapper } from "./App.style";
 import Header from "./components/Header/Header";
 import Main from "./components/Main/Main";
 import PopBrowse from "./components/PopUp/PopBrowse";
 import PopExit from "./components/PopUp/PopExit";
 import PopNewCard from "./components/PopUp/PopNewCard";
 import { useState, useEffect } from "react";
-import { Wrapper } from "./App.style";
+import { GlobalStyle } from "./Global.style";
 
 function App() {
   const [loading, setLoading] = useState(true);
@@ -18,6 +18,7 @@ function App() {
 
   return (
     <>
+      <GlobalStyle />
       <Wrapper>
         {/* <!-- pop-up start--> */}
         <PopExit />

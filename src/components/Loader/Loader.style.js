@@ -9,6 +9,11 @@ export const loader = styled.div`
   display: inline-block;
   clip-path: inset(0 3.2ch 0 0);
   animation: dotPulse 2s steps(5) infinite;
+  @keyframes dotPulse {
+    to {
+      clip-path: inset(0 -1ch 0 0);
+    }
+  }
 
   @media screen and (max-width: 1200px) {
     font-size: 20px;
