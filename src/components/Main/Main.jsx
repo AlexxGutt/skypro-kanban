@@ -1,18 +1,19 @@
 import Loader from "../Loader/Loader";
 import MainContent from "../MainContent/MainContent";
+import * as S from "./Main.style";
 
 function Main({ loading }) {
   return (
     <>
-      <main className="main">
-        <div className="container">
-          <div className="main__block">
-            <div className="main__content">
+      <S.main>
+        <S.conteiner>
+          <S.mainBlock>
+            <S.mainContent>
               {loading ? <Loader /> : <MainContent />}
-            </div>
-          </div>
-        </div>
-      </main>
+            </S.mainContent>
+          </S.mainBlock>
+        </S.conteiner>
+      </S.main>
     </>
   );
 }
