@@ -1,6 +1,8 @@
 import PopUserSet from "../PopUp/PopUserSet";
 import { useState } from "react";
 import * as S from "./Header.style";
+import { Link } from "react-router-dom";
+
 function Header() {
   const [isOpen, setisOpen] = useState(false);
   const isClose = () => {
@@ -22,7 +24,7 @@ function Header() {
           </S.headerLogo>
           <S.headerNav>
             <S.headerBtnMainNew>
-              <a href="#popNewCard">Создать новую задачу</a>
+              <Link to="/card/add">Создать новую задачу</Link>
             </S.headerBtnMainNew>
             <S.headerUser onClick={() => setisOpen(true)}>
               Ivan Ivanov

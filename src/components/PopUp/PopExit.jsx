@@ -1,6 +1,10 @@
+import { Link, Outlet } from "react-router-dom";
+import { GlobalStyle } from "../../Global.style";
+
 function PopExit() {
   return (
     <>
+      <GlobalStyle />
       <div className="pop-exit" id="popExit">
         <div className="pop-exit__container">
           <div className="pop-exit__block">
@@ -10,10 +14,10 @@ function PopExit() {
             <form className="pop-exit__form" id="formExit" action="#">
               <div className="pop-exit__form-group">
                 <button className="pop-exit__exit-yes _hover01" id="exitYes">
-                  <a href="modal/signin.html">Да, выйти</a>{" "}
+                  <Link to="/login">Да, выйти</Link>
                 </button>
                 <button className="pop-exit__exit-no _hover03" id="exitNo">
-                  <a href="index.html">Нет, остаться</a>{" "}
+                  <a href="/">Нет, остаться</a>{" "}
                 </button>
               </div>
             </form>
