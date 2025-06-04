@@ -1,12 +1,19 @@
 import { useNavigate } from "react-router-dom";
 import { GlobalStyle } from "../../Global.style";
 import Calendar from "../Calendar/Calendar";
+import { cards } from "../../data";
 
-function PopBrowse() {
+function PopBrowse({ cardId }) {
   const navigate = useNavigate();
   const handleClose = () => {
     navigate(-1);
   };
+  const card = cards.find((card) => card.id === Number(cardId));
+
+  if (!card) {
+    navigate("/");
+    return null;
+  }
 
   return (
     <>
@@ -16,9 +23,9 @@ function PopBrowse() {
           <div className="pop-browse__block">
             <div className="pop-browse__content">
               <div className="pop-browse__top-block">
-                <h3 className="pop-browse__ttl">Название задачи</h3>
+                <h3 className="pop-browse__ttl">{card.title}</h3>
                 <div className="categories__theme theme-top _orange _active-category">
-                  <p className="_orange">Web Design</p>
+                  <p className="_orange">{card.topic}</p>
                 </div>
               </div>
               <div className="pop-browse__status status">
@@ -28,7 +35,7 @@ function PopBrowse() {
                     <p>Без статуса</p>
                   </div>
                   <div className="status__theme _gray">
-                    <p className="_gray">Нужно сделать</p>
+                    <p className="_gray">{card.status}</p>
                   </div>
                   <div className="status__theme _hide">
                     <p>В работе</p>

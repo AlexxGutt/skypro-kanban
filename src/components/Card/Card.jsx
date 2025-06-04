@@ -12,7 +12,7 @@ function Card({ cardData, columnData }) {
             <S.cardTheme $topic={cardData.topic}>
               <p>{cardData.topic}</p>
             </S.cardTheme>
-            <Link to="/card/:id">
+            <Link to={`/card/${cardData.id}`}>
               <S.cardBtn>
                 <div></div>
                 <div></div>
@@ -21,11 +21,11 @@ function Card({ cardData, columnData }) {
             </Link>
           </S.cardGroup>
           <S.cardContent>
-            <a href="" target="_blank">
+            <Link to={`/card/${cardData.id}`}>
               <S.cardTitle $textDecoration={textDecor[columnData.topic]}>
                 {cardData.title}
               </S.cardTitle>
-            </a>
+            </Link>
             <S.cardDate>
               <svg
                 xmlns="http://www.w3.org/2000/svg"
