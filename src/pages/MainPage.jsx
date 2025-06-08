@@ -9,15 +9,10 @@ function MainPage() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const loaderShown = localStorage.getItem("loaderShown");
-    if (loaderShown) {
+    setTimeout(() => {
       setLoading(false);
-    } else {
-      setTimeout(() => {
-        setLoading(false);
-        localStorage.setItem("loaderShown", "true");
-      }, 3500);
-    }
+      localStorage.setItem("loaderShown", "true");
+    }, 3500);
   }, []);
 
   return (
