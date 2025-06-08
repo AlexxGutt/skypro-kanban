@@ -1,16 +1,15 @@
-import { GlobalStyle } from "../../Global.style";
-
+import { Link } from "react-router-dom";
+import * as S from "./NotFound.style";
 function NotFound() {
   return (
     <>
-      <GlobalStyle />
-      <div className="not-found">
+      <S.notFound>
         <h1>404</h1>
         <p>Страница не найдена</p>
-        <a href="/" className="home-link">
-          На главную
-        </a>
-      </div>
+        <Link to="/">
+          <S.homeLink>На главную</S.homeLink>
+        </Link>
+      </S.notFound>
     </>
   );
 }

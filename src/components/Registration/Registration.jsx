@@ -1,52 +1,49 @@
 import { Link } from "react-router-dom";
 import { GlobalStyle } from "../../Global.style";
-
+import * as S from "./Registration.style";
 function Registration() {
   return (
     <>
       <GlobalStyle />
-      <div class="wrapper">
-        <div class="container-signup">
-          <div class="modal">
-            <div class="modal__block">
-              <div class="modal__ttl">
+      <S.wrapper>
+        <S.containerSingUp>
+          <S.modal>
+            <S.modalBlock>
+              <S.modalTtl>
                 <h2>Регистрация</h2>
-              </div>
-              <form class="modal__form-login" id="formLogUp" action="#">
-                <input
-                  class="modal__input first-name"
+              </S.modalTtl>
+              <S.modalFormLogin>
+                <S.modalInput
                   type="text"
                   name="first-name"
                   id="first-name"
                   placeholder="Имя"
                 />
-                <input
-                  class="modal__input login"
+                <S.modalInput
                   type="text"
                   name="login"
                   id="loginReg"
                   placeholder="Эл. почта"
                 />
-                <input
-                  class="modal__input password-first"
+                <S.modalInput
                   type="password"
                   name="password"
                   id="passwordFirst"
                   placeholder="Пароль"
                 />
-                <button class="modal__btn-signup-ent _hover01" id="SignUpEnter">
-                  <a href="/">Зарегистрироваться</a>
-                </button>
-                <div class="modal__form-group">
+                <S.modalBtnSingUpEnt>
+                  <Link to="/">Зарегистрироваться</Link>
+                </S.modalBtnSingUpEnt>
+                <S.modalFormGroup>
                   <p>
                     Уже есть аккаунт? <Link to="/login">Войдите здесь</Link>
                   </p>
-                </div>
-              </form>
-            </div>
-          </div>
-        </div>
-      </div>
+                </S.modalFormGroup>
+              </S.modalFormLogin>
+            </S.modalBlock>
+          </S.modal>
+        </S.containerSingUp>
+      </S.wrapper>
     </>
   );
 }
