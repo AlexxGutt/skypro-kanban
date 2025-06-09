@@ -32,7 +32,7 @@ function Registration() {
                   placeholder="Пароль"
                 />
                 <S.modalBtnSingUpEnt>
-                  <Link to="/">Зарегистрироваться</Link>
+                  <Link to="/login">Зарегистрироваться</Link>
                 </S.modalBtnSingUpEnt>
                 <S.modalFormGroup>
                   <p>

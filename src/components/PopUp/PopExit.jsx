@@ -1,7 +1,14 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { GlobalStyle } from "../../Global.style";
 import * as S from "./PopExit.style";
-function PopExit() {
+function PopExit({ setAuth }) {
+  const navigate = useNavigate();
+  const handleExit = (e) => {
+    e.preventDefault();
+    setAuth(false);
+    navigate("/login");
+  };
+
   return (
     <>
       <GlobalStyle />
@@ -13,8 +20,8 @@ function PopExit() {
             </S.popExitTll>
             <S.popExitForm>
               <S.popExitFormGroup>
-                <S.popExitExitYes>
-                  <Link to="/login">Да, выйти</Link>
+                <S.popExitExitYes onClick={handleExit}>
+                  Да, выйти
                 </S.popExitExitYes>
                 <S.popExitExitNo>
                   <Link to="/">Нет, остаться</Link>

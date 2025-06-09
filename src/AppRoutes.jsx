@@ -18,7 +18,7 @@ function AppRoutes() {
           <Route path="/" element={<MainPage />}>
             <Route path="/card/add" element={<NewCard />} />
             <Route path="/card/:id" element={<CardPage />} />
-            <Route path="/exit" element={<ExitPage />} />
+            <Route path="/exit" element={<ExitPage setAuth={setAuth} />} />
           </Route>
         </Route>
         <Route path="/login" element={<LoginPage setAuth={setAuth} />} />
