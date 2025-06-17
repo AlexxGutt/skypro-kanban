@@ -1,4 +1,6 @@
 import { useEffect } from "react";
+import { Link } from "react-router-dom";
+import { GlobalStyle } from "../../Global.style";
 function PopUserSet({ isClose }) {
   useEffect(() => {
     const handleClickOutside = (event) => {
@@ -16,6 +18,7 @@ function PopUserSet({ isClose }) {
 
   return (
     <>
+      <GlobalStyle />
       <div className="header__pop-user-set pop-user-set" id="user-set-target">
         <a className="close-position" onClick={isClose}>
           x
@@ -27,7 +30,7 @@ function PopUserSet({ isClose }) {
           <input type="checkbox" className="checkbox" name="checkbox" />
         </div>
         <button type="button" className="_hover03">
-          <a href="#popExit">Выйти</a>
+          <Link to="/exit">Выйти</Link>
         </button>
       </div>
     </>

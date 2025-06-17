@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import * as S from "./Card.style";
 function Card({ cardData, columnData }) {
   const textDecor = {
@@ -11,20 +12,20 @@ function Card({ cardData, columnData }) {
             <S.cardTheme $topic={cardData.topic}>
               <p>{cardData.topic}</p>
             </S.cardTheme>
-            <a href="#popBrowse" target="_self">
+            <Link to={`/card/${cardData.id}`}>
               <S.cardBtn>
                 <div></div>
                 <div></div>
                 <div></div>
               </S.cardBtn>
-            </a>
+            </Link>
           </S.cardGroup>
           <S.cardContent>
-            <a href="" target="_blank">
+            <Link to={`/card/${cardData.id}`}>
               <S.cardTitle $textDecoration={textDecor[columnData.topic]}>
                 {cardData.title}
               </S.cardTitle>
-            </a>
+            </Link>
             <S.cardDate>
               <svg
                 xmlns="http://www.w3.org/2000/svg"

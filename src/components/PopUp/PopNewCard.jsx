@@ -1,14 +1,23 @@
+import { useNavigate } from "react-router-dom";
+import { GlobalStyle } from "../../Global.style";
 import Calendar from "../Calendar/Calendar";
 
 function PopNewCard() {
+  const navigate = useNavigate();
+
+  const handleClose = () => {
+    navigate(-1);
+  };
+
   return (
     <>
+      <GlobalStyle />
       <div className="pop-new-card" id="popNewCard">
         <div className="pop-new-card__container">
           <div className="pop-new-card__block">
             <div className="pop-new-card__content">
               <h3 className="pop-new-card__ttl">Создание задачи</h3>
-              <a href="#" className="pop-new-card__close">
+              <a className="pop-new-card__close" onClick={handleClose}>
                 &#10006;
               </a>
               <div className="pop-new-card__wrap">

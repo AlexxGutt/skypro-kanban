@@ -97,8 +97,8 @@ body {
   left: 0;
 }
 
-.pop-exit {
-  display: none;
+/* .pop-exit {
+  display: block;
   width: 100%;
   height: 100%;
   min-width: 320px;
@@ -107,8 +107,8 @@ body {
   top: 0;
   left: 0;
   z-index: 5;
-}
-.pop-exit__container {
+} */
+/* .pop-exit__container {
   width: 100%;
   height: 100%;
   min-height: 100vh;
@@ -118,8 +118,8 @@ body {
   align-items: center;
   justify-content: center;
   background: rgba(0, 0, 0, 0.4);
-}
-.pop-exit__block {
+} */
+/* .pop-exit__block {
   display: block;
   margin: 0 auto;
   background-color: #ffffff;
@@ -129,16 +129,16 @@ body {
   border-radius: 10px;
   border: 0.7px solid #d4dbe5;
   box-shadow: 0px 4px 67px -12px rgba(0, 0, 0, 0.13);
-}
-.pop-exit__ttl h2 {
+} */
+/* .pop-exit__ttl h2 {
   text-align: center;
   font-size: 20px;
   font-weight: 700;
   line-height: 30px;
   letter-spacing: -0.4px;
   margin-bottom: 20px;
-}
-.pop-exit__exit-yes {
+} */
+/* .pop-exit__exit-yes {
   width: 153px;
   height: 30px;
   background-color: #565eef;
@@ -154,16 +154,16 @@ body {
   letter-spacing: -0.14px;
   color: #ffffff;
   margin-right: 10px;
-}
-.pop-exit__exit-yes a {
+} */
+/* .pop-exit__exit-yes a {
   width: 100%;
   height: 100%;
   color: #ffffff;
   display: flex;
   align-items: center;
   justify-content: center;
-}
-.pop-exit__exit-no {
+} */
+/* .pop-exit__exit-no {
   width: 153px;
   height: 30px;
   background-color: transparent;
@@ -178,21 +178,21 @@ body {
   font-weight: 500;
   letter-spacing: -0.14px;
   color: #ffffff;
-}
-.pop-exit__exit-no a {
+} */
+/* .pop-exit__exit-no a {
   width: 100%;
   height: 100%;
   color: #565eef;
   display: flex;
   align-items: center;
   justify-content: center;
-}
-.pop-exit__form-group {
+} */
+/* .pop-exit__form-group {
   width: 100%;
   display: flex;
   align-items: center;
   justify-content: space-between;
-}
+} */
 
 .pop-user-set__name {
   color: #000;
@@ -259,7 +259,7 @@ body {
 }
 
 .pop-new-card {
-  display: none;
+  display: block;
   width: 100%;
   min-width: 375px;
   height: 100%;
@@ -525,7 +525,7 @@ body {
 }
 
 .pop-browse {
-  display: none;
+  display: block;
   width: 100%;
   height: 100%;
   min-width: 375px;
@@ -897,5 +897,33 @@ body {
   top: 5%;
   left: 90%;
 }
+/* Глобал Логина и Регистрации */
 
+a,
+a:visited {
+  text-decoration: none;
+  cursor: pointer;
+}
+
+button,
+._btn {
+  cursor: pointer;
+}
+
+ul li {
+  list-style: none;
+}
+
+html,
+body {
+  width: 100%;
+  height: 100%;
+  font-family: "Roboto", sans-serif;
+}
+
+div,
+button,
+a {
+  font-family: "Roboto", sans-serif;
+}
 `;
