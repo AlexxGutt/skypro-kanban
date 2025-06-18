@@ -1,14 +1,13 @@
 import { useNavigate } from "react-router-dom";
 import { GlobalStyle } from "../../Global.style";
 import Calendar from "../Calendar/Calendar";
-import { cards } from "../../data";
 
-function PopBrowse({ cardId }) {
+function PopBrowse({ cardId, tasks }) {
   const navigate = useNavigate();
   const handleClose = () => {
     navigate(-1);
   };
-  const card = cards.find((card) => card.id === Number(cardId));
+  const card = tasks.find((card) => card._id === cardId);
 
   if (!card) {
     navigate("/");
@@ -18,7 +17,7 @@ function PopBrowse({ cardId }) {
   return (
     <>
       <GlobalStyle />
-      <div className="pop-browse" id="popBrowse">
+      <div className="pop-browse" id={card._id}>
         <div className="pop-browse__container">
           <div className="pop-browse__block">
             <div className="pop-browse__content">

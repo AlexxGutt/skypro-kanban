@@ -4,6 +4,7 @@ function Card({ cardData, columnData }) {
   const textDecor = {
     "Готово": "line-through",
   };
+
   return (
     <>
       <S.cardItem>
