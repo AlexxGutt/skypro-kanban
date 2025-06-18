@@ -1,15 +1,22 @@
 import Column from "../Column/Column";
 import { dataColumn } from "../../dataColumn";
-import { cards } from "../../data";
+// import { cards } from "../../data";
 
-function MainContent() {
+function MainContent({ tasks, error }) {
   return (
     <>
       {dataColumn.map((column) => {
-        const filterCards = cards.filter(
-          (card) => card.status === column.topic
+        const filterCards = tasks.filter(
+          (task) => task.status === column.topic
         );
-        return <Column column={column} key={column.id} cards={filterCards} />;
+        return (
+          <Column
+            column={column}
+            key={column.id}
+            cards={filterCards}
+            error={error}
+          />
+        );
       })}
     </>
   );

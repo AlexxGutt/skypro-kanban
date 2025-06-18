@@ -1,26 +1,41 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import Main from "../components/Main/Main";
 import { Wrapper } from "../App.style";
 import Header from "../components/Header/Header";
 import { GlobalStyle } from "../Global.style";
 import { Outlet } from "react-router-dom";
+import { fetchTasks } from "../services/getTasks";
 
 function MainPage() {
   const [loading, setLoading] = useState(true);
+  const [tasks, setTasks] = useState([]);
+  const [error, setError] = useState("");
 
-  useEffect(() => {
-    setTimeout(() => {
+  const getTasks = useCallback(async () => {
+    try {
+      setLoading(true);
+      const data = await fetchTasks({
+        token: "",
+      });
+      if (data) setTasks(data);
+    } catch (err) {
+      setError(err.message);
+    } finally {
       setLoading(false);
-      localStorage.setItem("loaderShown", "true");
-    }, 3500);
+    }
   }, []);
 
+  useEffect(() => {
+    getTasks();
+  }, [getTasks]);
+
+  console.log(tasks);
   return (
     <>
       <GlobalStyle />
       <Wrapper>
         <Header />
-        <Main loading={loading} />
+        <Main loading={loading} tasks={tasks} error={error} />
       </Wrapper>
       <Outlet />
     </>

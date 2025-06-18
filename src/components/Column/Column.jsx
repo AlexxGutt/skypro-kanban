@@ -9,7 +9,7 @@ function Column({ column, cards }) {
 
         <S.cards>
           {cards.map((card) => (
-            <Card cardData={card} columnData={column} key={card.id} />
+            <Card cardData={card} columnData={column} key={card._id} />
           ))}
         </S.cards>
       </S.mainColumn>
