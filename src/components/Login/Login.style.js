@@ -147,3 +147,10 @@ export const modalFormGroup = styled.div`
     letter-spacing: -0.14px;
   }
 `;
+
+export const ErrorMessage = styled.div`
+  color: #ff6b6b;
+  font-size: 14px;
+  text-align: center;
+  margin-bottom: 15px;
+`;

@@ -76,6 +76,7 @@ export const modalInput = styled.input`
   outline: none;
   padding: 10px 8px;
   margin-bottom: 7px;
+
   &::-moz-placeholder {
     font-family: "Roboto", sans-serif;
     font-weight: 400;
@@ -146,4 +147,11 @@ export const modalFormGroup = styled.div`
     letter-spacing: -0.14px;
     text-decoration: none;
   }
+`;
+
+export const ErrorMessage = styled.div`
+  color: #ff6b6b;
+  font-size: 14px;
+  text-align: center;
+  margin-bottom: 15px;
 `;

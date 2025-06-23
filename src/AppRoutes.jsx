@@ -19,8 +19,9 @@ function AppRoutes() {
   const getTasks = useCallback(async () => {
     try {
       setLoading(true);
+      const userData = JSON.parse(localStorage.getItem("userInfo"));
       const data = await fetchTasks({
-        token: "",
+        token: `${userData.token}`,
       });
       if (data) setTasks(data);
     } catch (err) {

@@ -2,7 +2,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { GlobalStyle } from "../../Global.style";
 import * as S from "./Registration.style";
 import { useState } from "react";
-import { singIn } from "../../services/auth";
+import { singUp } from "../../services/auth";
 function Registration() {
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
@@ -12,36 +12,26 @@ function Registration() {
   });
 
   const [errors, setErrors] = useState({
-    name: "",
-    login: "",
-    password: "",
+    name: false,
+    login: false,
+    password: false,
   });
 
   const [error, setError] = useState("");
 
   const validateForm = () => {
-    const newErrors = { name: "", login: "", password: "" };
-    let isValid = true;
+    const newErrors = {
+      name: !formData.name.trim(),
+      login: !formData.login.trim(),
+      password: !formData.password.trim(),
+    };
 
-    if (!formData.name.trim()) {
-      newErrors.name = true;
-      setErrors("Заполните все поля");
-      isValid = false;
-    }
-
-    if (!formData.login.trim()) {
-      newErrors.login = true;
-      setErrors("Заполните все поля");
-      isValid = false;
-    }
-
-    if (!formData.password.trim()) {
-      newErrors.password = true;
-      setErrors("Заполните все поля");
-      isValid = false;
-    }
     setErrors(newErrors);
-    return isValid;
+    setError(
+      Object.values(newErrors).some(Boolean) ? "Заполните все поля" : ""
+    );
+
+    return !Object.values(newErrors).some(Boolean);
   };
 
   const handleChange = (e) => {
@@ -60,7 +50,8 @@ function Registration() {
       return;
     }
     try {
-      await singIn(formData);
+      await singUp(formData);
+      navigate("/login");
     } catch (err) {
       setError(err.message);
     }
@@ -76,18 +67,19 @@ function Registration() {
               <S.modalTtl>
                 <h2>Регистрация</h2>
               </S.modalTtl>
-              <S.modalFormLogin>
+              {error && <S.ErrorMessage>{error}</S.ErrorMessage>}
+              <S.modalFormLogin onSubmit={handleSubmit}>
                 <S.modalInput
-                  error={errors.name}
+                  error={errors.name.toString()}
                   type="text"
-                  name="firstName"
+                  name="name"
                   id="first-name"
                   placeholder="Имя"
                   value={formData.name}
                   onChange={handleChange}
                 />
                 <S.modalInput
-                  error={errors.login}
+                  error={errors.login.toString()}
                   type="text"
                   name="login"
                   id="loginReg"
@@ -96,7 +88,7 @@ function Registration() {
                   onChange={handleChange}
                 />
                 <S.modalInput
-                  error={errors.password}
+                  error={errors.password.toString()}
                   type="password"
                   name="password"
                   id="passwordFirst"
@@ -104,10 +96,8 @@ function Registration() {
                   value={formData.password}
                   onChange={handleChange}
                 />
-                <S.modalBtnSingUpEnt>
-                  <Link to="/login" onSubmit={handleSubmit}>
-                    Зарегистрироваться
-                  </Link>
+                <S.modalBtnSingUpEnt type="submit">
+                  Зарегистрироваться
                 </S.modalBtnSingUpEnt>
                 <S.modalFormGroup>
                   <p>

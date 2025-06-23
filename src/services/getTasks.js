@@ -2,12 +2,11 @@ import axios from "axios";
 
 const API_URL = "https://wedev-api.sky.pro/api/kanban";
 
-export async function fetchTasks() {
+export async function fetchTasks({ token }) {
   try {
     const data = await axios.get(API_URL, {
       headers: {
-        Authorization:
-          "Bearer bgc0b8awbwas6g5g5k5o5s5w606g37w3cc3bo3b83k39s3co3c83c03ck",
+        Authorization: "Bearer " + token,
       },
     });
     return data.data.tasks;

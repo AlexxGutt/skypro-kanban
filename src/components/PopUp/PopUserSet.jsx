@@ -15,6 +15,7 @@ function PopUserSet({ isClose }) {
       document.removeEventListener("mousedown", handleClickOutside);
     };
   }, [isClose]);
+  const userData = JSON.parse(localStorage.getItem("userInfo"));
 
   return (
     <>
@@ -23,8 +24,8 @@ function PopUserSet({ isClose }) {
         <a className="close-position" onClick={isClose}>
           x
         </a>
-        <p className="pop-user-set__name">Ivan Ivanov</p>
-        <p className="pop-user-set__mail">ivan.ivanov@gmail.com</p>
+        <p className="pop-user-set__name">{userData.name}</p>
+        <p className="pop-user-set__mail">{userData.login}</p>
         <div className="pop-user-set__theme">
           <p>Темная тема</p>
           <input type="checkbox" className="checkbox" name="checkbox" />
