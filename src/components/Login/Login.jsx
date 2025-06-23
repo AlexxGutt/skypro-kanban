@@ -47,24 +47,18 @@ function Login({ setAuth }) {
       return;
     }
     try {
-      const response = await singIn({
+      const data = await singIn({
         login: formData.login,
         password: formData.password,
       });
-      if (response.user) {
-        const userData = {
-          _id: response.user._id,
-          login: response.user.login,
-          name: response.user.name,
-          token: response.user.token,
-        };
-        localStorage.setItem("userInfo", JSON.stringify(userData));
+      if (data) {
+        setAuth(true);
+        localStorage.setItem("userInfo", JSON.stringify(data));
+        navigate("/");
       }
     } catch (err) {
       setError(err.message);
     }
-    setAuth(true);
-    navigate("/");
   };
 
   return (
