@@ -8,6 +8,9 @@ function Header() {
   const isClose = () => {
     setisOpen(false);
   };
+
+  const userData = JSON.parse(localStorage.getItem("userInfo"));
+
   return (
     <S.header>
       <S.conteiner>
@@ -27,7 +30,7 @@ function Header() {
               <Link to="/card/add">Создать новую задачу</Link>
             </S.headerBtnMainNew>
             <S.headerUser onClick={() => setisOpen(true)}>
-              Ivan Ivanov
+              {userData.name}
             </S.headerUser>
             {isOpen ? <PopUserSet isClose={isClose} /> : ""}
           </S.headerNav>

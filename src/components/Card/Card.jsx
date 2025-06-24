@@ -4,6 +4,7 @@ function Card({ cardData, columnData }) {
   const textDecor = {
     "Готово": "line-through",
   };
+
   return (
     <>
       <S.cardItem>
@@ -12,7 +13,7 @@ function Card({ cardData, columnData }) {
             <S.cardTheme $topic={cardData.topic}>
               <p>{cardData.topic}</p>
             </S.cardTheme>
-            <Link to={`/card/${cardData.id}`}>
+            <Link to={`/card/${cardData._id}`}>
               <S.cardBtn>
                 <div></div>
                 <div></div>
@@ -21,7 +22,7 @@ function Card({ cardData, columnData }) {
             </Link>
           </S.cardGroup>
           <S.cardContent>
-            <Link to={`/card/${cardData.id}`}>
+            <Link to={`/card/${cardData._id}`}>
               <S.cardTitle $textDecoration={textDecor[columnData.topic]}>
                 {cardData.title}
               </S.cardTitle>
