@@ -11,7 +11,6 @@ import PrivateRoute from "./components/PrivateRoute/PrivatRoute";
 import { fetchTasks } from "./services/getTasks";
 
 function AppRoutes() {
-  const [isAuth, setAuth] = useState(false);
   const [loading, setLoading] = useState(true);
   const [tasks, setTasks] = useState([]);
   const [error, setError] = useState("");
@@ -38,17 +37,17 @@ function AppRoutes() {
   return (
     <>
       <Routes>
-        <Route element={<PrivateRoute isAuth={isAuth} />}>
+        <Route element={<PrivateRoute />}>
           <Route
             path="/"
             element={<MainPage loading={loading} tasks={tasks} error={error} />}
           >
             <Route path="/card/add" element={<NewCard />} />
             <Route path="/card/:id" element={<CardPage tasks={tasks} />} />
-            <Route path="/exit" element={<ExitPage setAuth={setAuth} />} />
+            <Route path="/exit" element={<ExitPage />} />
           </Route>
         </Route>
-        <Route path="/login" element={<LoginPage setAuth={setAuth} />} />
+        <Route path="/login" element={<LoginPage />} />
         <Route path="/registration" element={<RegistrationPage />} />
         <Route path="/*" element={<NotFoundPage />} />
       </Routes>

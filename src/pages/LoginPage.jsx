@@ -1,7 +1,7 @@
 import Login from "../components/Login/Login";
 
-function LoginPage({ setAuth }) {
-  return <Login setAuth={setAuth} />;
+function LoginPage() {
+  return <Login />;
 }
 
 export default LoginPage;
