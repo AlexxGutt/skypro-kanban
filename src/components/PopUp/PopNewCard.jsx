@@ -1,17 +1,76 @@
 import { useNavigate } from "react-router-dom";
 import { GlobalStyle } from "../../Global.style";
 import Calendar from "../Calendar/Calendar";
+import { useState } from "react";
+import { addTask, fetchTasks } from "../../services/getTasks";
 
 function PopNewCard() {
   const navigate = useNavigate();
+  const [formData, setFormData] = useState({
+    title: "",
+    description: "",
+    category: "Web Design",
+  });
+
+  const [errors, setErrors] = useState({
+    title: false,
+    description: false,
+  });
+
+  const [error, setError] = useState("");
 
   const handleClose = () => {
     navigate(-1);
   };
 
+  const validateForm = () => {
+    const newErrors = {
+      title: !formData.title.trim(),
+      description: !formData.description.trim(),
+    };
+
+    setErrors(newErrors);
+    setError(
+      Object.values(newErrors).some(Boolean) ? "Заполните все поля" : ""
+    );
+    return !Object.values(newErrors).some(Boolean);
+  };
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData({
+      ...formData,
+      [name]: value,
+    });
+    setErrors({ ...errors, [name]: false });
+    setError("");
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    if (!validateForm()) {
+      return;
+    }
+    try {
+      await addTask({
+        title: formData.title,
+        description: formData.description,
+      });
+      fetchTasks();
+      navigate("/");
+    } catch (err) {
+      setError(err.message);
+    }
+  };
+
   return (
     <>
       <GlobalStyle />
+      {error && (
+        <div className="error-message" style={{ color: "red" }}>
+          {error}
+        </div>
+      )}
       <div className="pop-new-card" id="popNewCard">
         <div className="pop-new-card__container">
           <div className="pop-new-card__block">
@@ -24,7 +83,7 @@ function PopNewCard() {
                 <form
                   className="pop-new-card__form form-new"
                   id="formNewCard"
-                  action="#"
+                  onSubmit={handleSubmit}
                 >
                   <div className="form-new__block">
                     <label htmlFor="formTitle" className="subttl">
@@ -33,8 +92,10 @@ function PopNewCard() {
                     <input
                       className="form-new__input"
                       type="text"
-                      name="name"
+                      name="title"
                       id="formTitle"
+                      value={formData.title}
+                      onChange={handleChange}
                       placeholder="Введите название задачи..."
                       autoFocus
                     />
@@ -45,8 +106,10 @@ function PopNewCard() {
                     </label>
                     <textarea
                       className="form-new__area"
-                      name="text"
+                      name="description"
                       id="textArea"
+                      value={formData.description}
+                      onChange={handleChange}
                       placeholder="Введите описание задачи..."
                     ></textarea>
                   </div>
@@ -66,10 +129,15 @@ function PopNewCard() {
                     <p className="_purple">Copywriting</p>
                   </div>
                 </div>
+                <button
+                  className="form-new__create _hover01"
+                  id="btnCreate"
+                  type="button"
+                  form="formNewCard"
+                >
+                  Создать задачу
+                </button>
               </div>
-              <button className="form-new__create _hover01" id="btnCreate">
-                Создать задачу
-              </button>
             </div>
           </div>
         </div>

@@ -1,6 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import { GlobalStyle } from "../../Global.style";
 import Calendar from "../Calendar/Calendar";
+import { deleteTask } from "../../services/getTasks";
 
 function PopBrowse({ cardId, tasks }) {
   const navigate = useNavigate();
@@ -9,6 +10,13 @@ function PopBrowse({ cardId, tasks }) {
   };
   const card = tasks.find((card) => card._id === cardId);
 
+  const handleDelete = async () => {
+    try {
+      await deleteTask({ cardId });
+    } finally {
+      navigate("/");
+    }
+  };
   if (!card) {
     navigate("/");
     return null;
@@ -62,7 +70,7 @@ function PopBrowse({ cardId, tasks }) {
                       name="text"
                       id="textArea01"
                       readOnly
-                      placeholder="Введите описание задачи..."
+                      placeholder={card.description}
                     ></textarea>
                   </div>
                 </form>
@@ -79,8 +87,11 @@ function PopBrowse({ cardId, tasks }) {
                   <button className="btn-browse__edit _btn-bor _hover03">
                     <a href="#">Редактировать задачу</a>
                   </button>
-                  <button className="btn-browse__delete _btn-bor _hover03">
-                    <a href="#">Удалить задачу</a>
+                  <button
+                    className="btn-browse__delete _btn-bor _hover03"
+                    onClick={handleDelete}
+                  >
+                    Удалить задачу
                   </button>
                 </div>
                 <button className="btn-browse__close _btn-bg _hover01">
@@ -98,8 +109,9 @@ function PopBrowse({ cardId, tasks }) {
                   <button
                     className="btn-edit__delete _btn-bor _hover03"
                     id="btnDelete"
+                    onClick={handleDelete}
                   >
-                    <a href="#">Удалить задачу</a>
+                    Удалить задачу
                   </button>
                 </div>
                 <button className="btn-edit__close _btn-bg _hover01">
@@ -113,4 +125,5 @@ function PopBrowse({ cardId, tasks }) {
     </>
   );
 }
+
 export default PopBrowse;
