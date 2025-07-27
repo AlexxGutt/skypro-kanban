@@ -1,10 +1,16 @@
 import { useNavigate } from "react-router-dom";
 import { GlobalStyle } from "../../Global.style";
 import Calendar from "../Calendar/Calendar";
-import { useState } from "react";
-import { addTask, fetchTasks } from "../../services/getTasks";
+import { useContext, useRef, useState } from "react";
+import { TaskContext } from "../../context/TaskContext";
 
 function PopNewCard() {
+  const { addTask } = useContext(TaskContext);
+  const formRef = useRef();
+  const handleBattonClick = () => {
+    formRef.current.dispatchEvent(new Event("submit", { cancelable: true }));
+  };
+
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
     title: "",
@@ -56,7 +62,6 @@ function PopNewCard() {
         title: formData.title,
         description: formData.description,
       });
-      fetchTasks();
       navigate("/");
     } catch (err) {
       setError(err.message);
@@ -81,6 +86,7 @@ function PopNewCard() {
               </a>
               <div className="pop-new-card__wrap">
                 <form
+                  ref={formRef}
                   className="pop-new-card__form form-new"
                   id="formNewCard"
                   onSubmit={handleSubmit}
@@ -132,8 +138,9 @@ function PopNewCard() {
                 <button
                   className="form-new__create _hover01"
                   id="btnCreate"
-                  type="button"
+                  type="submit"
                   form="formNewCard"
+                  onClick={handleBattonClick}
                 >
                   Создать задачу
                 </button>

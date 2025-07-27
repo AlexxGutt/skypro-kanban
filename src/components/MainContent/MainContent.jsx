@@ -1,8 +1,11 @@
 import Column from "../Column/Column";
 import { dataColumn } from "../../dataColumn";
-// import { cards } from "../../data";
+import { useContext } from "react";
+import { TaskContext } from "../../context/TaskContext";
 
-function MainContent({ tasks, error }) {
+function MainContent() {
+  const { tasks, error } = useContext(TaskContext);
+
   return (
     <>
       {dataColumn.map((column) => {

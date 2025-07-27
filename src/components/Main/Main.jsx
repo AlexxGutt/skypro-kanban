@@ -1,19 +1,18 @@
+import { useContext } from "react";
 import Loader from "../Loader/Loader";
 import MainContent from "../MainContent/MainContent";
 import * as S from "./Main.style";
+import { TaskContext } from "../../context/TaskContext";
 
-function Main({ loading, tasks, error }) {
+function Main() {
+  const { loading } = useContext(TaskContext);
   return (
     <>
       <S.main>
         <S.conteiner>
           <S.mainBlock>
             <S.mainContent>
-              {loading ? (
-                <Loader />
-              ) : (
-                <MainContent tasks={tasks} error={error} />
-              )}
+              {loading ? <Loader /> : <MainContent />}
             </S.mainContent>
           </S.mainBlock>
         </S.conteiner>

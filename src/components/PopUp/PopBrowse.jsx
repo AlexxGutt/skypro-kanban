@@ -1,10 +1,12 @@
 import { useNavigate } from "react-router-dom";
 import { GlobalStyle } from "../../Global.style";
 import Calendar from "../Calendar/Calendar";
-import { deleteTask } from "../../services/getTasks";
+import { useContext } from "react";
+import { TaskContext } from "../../context/TaskContext";
 
-function PopBrowse({ cardId, tasks }) {
+function PopBrowse({ cardId }) {
   const navigate = useNavigate();
+  const { tasks, deleteTask } = useContext(TaskContext);
   const handleClose = () => {
     navigate(-1);
   };
@@ -12,9 +14,9 @@ function PopBrowse({ cardId, tasks }) {
 
   const handleDelete = async () => {
     try {
-      await deleteTask({ cardId });
-    } finally {
-      navigate("/");
+      await deleteTask(cardId);
+    } catch (err) {
+      console.error("Ошибка удаления", err);
     }
   };
   if (!card) {
