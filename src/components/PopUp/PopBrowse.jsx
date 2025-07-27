@@ -1,16 +1,25 @@
 import { useNavigate } from "react-router-dom";
 import { GlobalStyle } from "../../Global.style";
 import Calendar from "../Calendar/Calendar";
-import { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
 import { TaskContext } from "../../context/TaskContext";
 
 function PopBrowse({ cardId }) {
   const navigate = useNavigate();
   const { tasks, deleteTask } = useContext(TaskContext);
+  const [card, setCard] = useState(null);
   const handleClose = () => {
     navigate(-1);
   };
-  const card = tasks.find((card) => card._id === cardId);
+
+  useEffect(() => {
+    const foundCard = tasks.find((card) => card._id === cardId);
+    setCard(foundCard);
+
+    if (!foundCard) {
+      navigate("/", { replace: true });
+    }
+  }, [tasks, cardId, navigate]);
 
   const handleDelete = async () => {
     try {
@@ -20,7 +29,6 @@ function PopBrowse({ cardId }) {
     }
   };
   if (!card) {
-    navigate("/");
     return null;
   }
 
