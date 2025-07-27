@@ -63,3 +63,29 @@ export async function deleteTask(taskId) {
     throw new Error(error.message);
   }
 }
+
+export async function editTask({
+  taskId,
+  title,
+  topic,
+  status,
+  description,
+  date,
+}) {
+  const token = getToken();
+  try {
+    const response = await axios.put(
+      `${API_URL}/${taskId}`,
+      { title, topic, status, description, date },
+      {
+        headers: {
+          Authorization: "Bearer " + token,
+          "Content-Type": "",
+        },
+      }
+    );
+    return response.data.tasks;
+  } catch (error) {
+    throw new Error(error.message);
+  }
+}

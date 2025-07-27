@@ -1,6 +1,11 @@
 import { useCallback, useEffect, useState } from "react";
 import { TaskContext } from "./TaskContext";
-import { addTask, deleteTask, fetchTasks } from "../services/getTasks";
+import {
+  addTask,
+  deleteTask,
+  editTask,
+  fetchTasks,
+} from "../services/getTasks";
 
 const TaskProvider = ({ children }) => {
   const [loading, setLoading] = useState(true);
@@ -51,6 +56,19 @@ const TaskProvider = ({ children }) => {
     }
   };
 
+  const handleEditTask = async (updatedTask) => {
+    try {
+      setLoading(true);
+      await editTask(updatedTask);
+      await getTasks();
+    } catch (err) {
+      setError(err.message);
+      throw err;
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return (
     <TaskContext.Provider
       value={{
@@ -59,6 +77,7 @@ const TaskProvider = ({ children }) => {
         error,
         addTask: handleAddTask,
         deleteTask: handleDeleteTask,
+        editTask: handleEditTask,
       }}
     >
       {children}
