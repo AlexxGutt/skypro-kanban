@@ -3,12 +3,19 @@ import { GlobalStyle } from "../../Global.style";
 import Calendar from "../Calendar/Calendar";
 import { useContext, useEffect, useState } from "react";
 import { TaskContext } from "../../context/TaskContext";
+import { editTask } from "../../services/getTasks";
 
 function PopBrowse({ cardId }) {
   const navigate = useNavigate();
-  const { tasks, deleteTask } = useContext(TaskContext);
+  const { tasks, deleteTask, getTasks } = useContext(TaskContext);
   const [card, setCard] = useState(null);
   const [isEdit, setIsEdit] = useState(false);
+  const [editedDescription, setEditedDescription] = useState("");
+
+  const handleDescriptionChange = (e) => {
+    setEditedDescription(e.target.value);
+    setCard((prev) => ({ ...prev, description: e.target.value }));
+  };
   const handleEditClick = () => {
     setIsEdit(true);
   };
@@ -21,19 +28,35 @@ function PopBrowse({ cardId }) {
   };
 
   useEffect(() => {
+    if (!tasks) return;
     const foundCard = tasks.find((card) => card._id === cardId);
-    setCard(foundCard);
 
     if (!foundCard) {
       navigate("/", { replace: true });
+      return;
     }
+
+    setCard(foundCard);
+    setEditedDescription(foundCard.description || "");
   }, [tasks, cardId, navigate]);
+
+  const handleSave = async () => {
+    try {
+      await editTask(cardId, editedDescription);
+      await getTasks();
+      setIsEdit(false);
+    } catch (err) {
+      console.log("Ошибка сохранения", err);
+    }
+  };
 
   const handleDelete = async () => {
     try {
       await deleteTask(cardId);
+      navigate("/", { replace: true });
     } catch (err) {
       console.error("Ошибка удаления", err);
+      await getTasks();
     }
   };
   if (!card) {
@@ -88,7 +111,11 @@ function PopBrowse({ cardId }) {
                       name="text"
                       id="textArea01"
                       readOnly={!isEdit}
-                      placeholder={card.description}
+                      value={card?.description || ""}
+                      onChange={isEdit ? handleDescriptionChange : undefined}
+                      placeholder={
+                        card?.description || "Введите описание задачи"
+                      }
                     ></textarea>
                   </div>
                 </form>
@@ -123,7 +150,10 @@ function PopBrowse({ cardId }) {
               </div>
               <div className={`pop-browse__btn-edit ${isEdit ? "" : "_hide"}`}>
                 <div className="btn-group">
-                  <button className="btn-edit__edit _btn-bg _hover01">
+                  <button
+                    className="btn-edit__edit _btn-bg _hover01"
+                    onClick={handleSave}
+                  >
                     <a href="#">Сохранить</a>
                   </button>
                   <button
@@ -140,7 +170,10 @@ function PopBrowse({ cardId }) {
                     Удалить задачу
                   </button>
                 </div>
-                <button className="btn-edit__close _btn-bg _hover01">
+                <button
+                  className="btn-edit__close _btn-bg _hover01"
+                  onClick={handleClose}
+                >
                   <a href="#">Закрыть</a>
                 </button>
               </div>

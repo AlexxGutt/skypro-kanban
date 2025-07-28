@@ -48,18 +48,19 @@ const TaskProvider = ({ children }) => {
     try {
       setLoading(true);
       await deleteTask(taskId);
-      await getTasks();
+      setTasks((prev) => prev.filter((task) => task._id !== taskId));
     } catch (err) {
       setError(err.message);
+      await getTasks();
     } finally {
       setLoading(false);
     }
   };
 
-  const handleEditTask = async (updatedTask) => {
+  const handleEditTask = async (taskId, description) => {
     try {
       setLoading(true);
-      await editTask(updatedTask);
+      await editTask(taskId, description);
       await getTasks();
     } catch (err) {
       setError(err.message);
@@ -75,6 +76,7 @@ const TaskProvider = ({ children }) => {
         loading,
         tasks,
         error,
+        getTasks,
         addTask: handleAddTask,
         deleteTask: handleDeleteTask,
         editTask: handleEditTask,
