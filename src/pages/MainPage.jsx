@@ -4,13 +4,13 @@ import Header from "../components/Header/Header";
 import { GlobalStyle } from "../Global.style";
 import { Outlet } from "react-router-dom";
 
-function MainPage({ loading, tasks, error }) {
+function MainPage() {
   return (
     <>
       <GlobalStyle />
       <Wrapper>
         <Header />
-        <Main loading={loading} tasks={tasks} error={error} />
+        <Main />
       </Wrapper>
       <Outlet />
     </>

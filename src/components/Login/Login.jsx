@@ -2,8 +2,10 @@ import { Link, useNavigate } from "react-router-dom";
 import { GlobalStyle } from "../../Global.style";
 import * as S from "./Login.style";
 import { singIn } from "../../services/auth";
-import { useState } from "react";
-function Login({ setAuth }) {
+import { useContext, useState } from "react";
+import { AuthContext } from "../../context/AuthContext";
+function Login() {
+  const { updateUserInfo } = useContext(AuthContext);
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
     login: "",
@@ -52,8 +54,7 @@ function Login({ setAuth }) {
         password: formData.password,
       });
       if (data) {
-        setAuth(true);
-        localStorage.setItem("userInfo", JSON.stringify(data));
+        updateUserInfo(data);
         navigate("/");
       }
     } catch (err) {
