@@ -73,6 +73,14 @@ function PopBrowse({ cardId }) {
     return null;
   }
 
+  const getTopicColor = (topic) => {
+    return {
+      "Web Design": "orange",
+      "Research": "green",
+      "Copywriting": "purple",
+    }[topic];
+  };
+
   return (
     <>
       <GlobalStyle />
@@ -82,8 +90,14 @@ function PopBrowse({ cardId }) {
             <div className="pop-browse__content">
               <div className="pop-browse__top-block">
                 <h3 className="pop-browse__ttl">{card.title}</h3>
-                <div className="categories__theme theme-top _orange _active-category">
-                  <p className="_orange">{card.topic}</p>
+                <div
+                  className={`categories__theme theme-top _${getTopicColor(
+                    card.topic
+                  )} _active-category`}
+                >
+                  <p className={`_${getTopicColor(card.topic)}`}>
+                    {card.topic}
+                  </p>
                 </div>
               </div>
 
@@ -92,8 +106,25 @@ function PopBrowse({ cardId }) {
                 <div className="status__themes">
                   {/* Текущий статус*/}
                   {!isEdit && (
-                    <div className="status__theme _gray">
-                      <p className="_gray">{card.status}</p>
+                    <div
+                      className="status__theme _gray"
+                      style={{
+                        backgroundColor: "#94A6BE",
+                        color: "#ffffff",
+                        padding: "8px 12px",
+                        borderRadius: "24px",
+                        border: "0.7px solid rgba(148, 166, 190, 0.4)",
+                      }}
+                    >
+                      <p
+                        style={{
+                          color: "#ffffff",
+                          margin: 0,
+                          fontSize: "14px",
+                        }}
+                      >
+                        {card.status}
+                      </p>
                     </div>
                   )}
                   {/* Выбор статуса*/}
@@ -108,7 +139,7 @@ function PopBrowse({ cardId }) {
                         style={{
                           cursor: "pointer",
                           backgroundColor:
-                            editedStatus === status ? "#565eef" : "transparent",
+                            editedStatus === status ? "#94A6BE" : "transparent",
                           color: editedStatus === status ? "white" : "#94a6be",
                         }}
                       >
@@ -149,7 +180,6 @@ function PopBrowse({ cardId }) {
                 </div>
               </div>
 
-              {/* Кнопки в режиме просмотра */}
               <div
                 className={`pop-browse__btn-browse ${isEdit ? "_hide" : ""}`}
               >
@@ -175,7 +205,6 @@ function PopBrowse({ cardId }) {
                 </button>
               </div>
 
-              {/* Кнопки в режиме редактирования */}
               <div className={`pop-browse__btn-edit ${isEdit ? "" : "_hide"}`}>
                 <div className="btn-group">
                   <button

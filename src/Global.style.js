@@ -692,6 +692,10 @@ body {
 ._btn-bg a {
   color: #ffffff;
 }
+._btn-bg:hover {
+  background-color: rgba(86, 94, 239, 0.8) !important;
+  opacity: 0.9;
+}
 
 ._hide {
   display: none;
@@ -727,6 +731,66 @@ body {
   align-items: flex-start;
   justify-content: stretch;
   padding: 15px 13px 19px;
+}
+
+._btn-bg {
+  border-radius: 4px;
+  background: #565eef;
+  border: none;
+  outline: none;
+  color: #ffffff;
+  transition: all 0.3s ease;
+}
+
+._btn-bg:hover {
+  background-color: rgba(86, 94, 239, 0.8) !important;
+}
+
+._btn-bg a {
+  color: #ffffff;
+}
+
+._btn-bor {
+  border-radius: 4px;
+  border: 0.7px solid var(--palette-navy-60, #565eef);
+  outline: none;
+  background: transparent;
+  color: #565eef;
+  transition: all 0.3s ease;
+}
+
+._btn-bor:hover {
+  background-color: rgba(86, 94, 239, 1) !important;
+  color: rgba(255, 255, 255, 1) !important;
+}
+
+._btn-bor a {
+  color: #565eef;
+  transition: color 0.3s ease;
+}
+
+._btn-bor:hover a {
+  color: rgba(255, 255, 255, 1) !important;
+}
+
+._orange {
+  background-color: #ffe4c2;
+  color: #ff6d00;
+}
+
+._green {
+  background-color: #b4fdd1;
+  color: #06b16e;
+}
+
+._purple {
+  background-color: #e9d4ff;
+  color: #9a48f1;
+}
+
+._gray {
+  background: #94a6be;
+  color: #ffffff;
 }
 
 @media screen and (max-width: 1200px) {
