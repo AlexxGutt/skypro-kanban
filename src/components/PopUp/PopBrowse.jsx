@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom";
-import { GlobalStyle } from "../../Global.style";
+import * as S from "./PopBrowse.style";
 import Calendar from "../Calendar/Calendar";
 import { useContext, useEffect, useState } from "react";
 import { TaskContext } from "../../context/TaskContext";
@@ -73,37 +73,22 @@ function PopBrowse({ cardId }) {
     return null;
   }
 
-  const getTopicColor = (topic) => {
-    return {
-      "Web Design": "orange",
-      "Research": "green",
-      "Copywriting": "purple",
-    }[topic];
-  };
-
   return (
     <>
-      <GlobalStyle />
-      <div className="pop-browse" id={card._id}>
-        <div className="pop-browse__container">
-          <div className="pop-browse__block">
-            <div className="pop-browse__content">
-              <div className="pop-browse__top-block">
-                <h3 className="pop-browse__ttl">{card.title}</h3>
-                <div
-                  className={`categories__theme theme-top _${getTopicColor(
-                    card.topic
-                  )} _active-category`}
-                >
-                  <p className={`_${getTopicColor(card.topic)}`}>
-                    {card.topic}
-                  </p>
-                </div>
-              </div>
+      <S.popBrowse>
+        <S.popBrowseContainer>
+          <S.popBbrowseBlock>
+            <S.popBrowseContent>
+              <S.popBrowseTopBlock>
+                <S.popBrowseTtl>{card.title}</S.popBrowseTtl>
+                <S.categoriesThemeTopActiveCategory $topic={card.topic}>
+                  <p>{card.topic}</p>
+                </S.categoriesThemeTopActiveCategory>
+              </S.popBrowseTopBlock>
 
-              <div className="pop-browse__status status">
-                <p className="status__p subttl">Статус</p>
-                <div className="status__themes">
+              <S.status>
+                <S.statusPSubttl>Статус</S.statusPSubttl>
+                <S.statusThemes>
                   {/* Текущий статус*/}
                   {!isEdit && (
                     <div
@@ -111,7 +96,7 @@ function PopBrowse({ cardId }) {
                       style={{
                         backgroundColor: "#94A6BE",
                         color: "#ffffff",
-                        padding: "8px 12px",
+                        padding: "11px 14px 10px",
                         borderRadius: "24px",
                         border: "0.7px solid rgba(148, 166, 190, 0.4)",
                       }}
@@ -146,40 +131,25 @@ function PopBrowse({ cardId }) {
                         <p>{status}</p>
                       </div>
                     ))}
-                </div>
-              </div>
+                </S.statusThemes>
+              </S.status>
 
-              <div className="pop-browse__wrap">
-                <form
-                  className="pop-browse__form form-browse"
-                  id="formBrowseCard"
-                  action="#"
-                >
-                  <div className="form-browse__block">
-                    <label htmlFor="textArea01" className="subttl">
-                      Описание задачи
-                    </label>
-                    <textarea
-                      className="form-browse__area"
+              <S.popBrowseWrap>
+                <S.popBrowseForm>
+                  <S.formBrowseBlock>
+                    <S.subttl>Описание задачи</S.subttl>
+                    <S.formBrowseArea
                       name="text"
                       id="textArea01"
                       readOnly={!isEdit}
                       value={editedDescription}
                       onChange={handleDescriptionChange}
                       placeholder="Введите описание задачи"
-                    ></textarea>
-                  </div>
-                </form>
+                    ></S.formBrowseArea>
+                  </S.formBrowseBlock>
+                </S.popBrowseForm>
                 <Calendar />
-              </div>
-
-              <div className="theme-down__categories theme-down">
-                <p className="categories__p subttl">Категория</p>
-                <div className="categories__theme _orange _active-category">
-                  <p className="_orange">{card.topic}</p>
-                </div>
-              </div>
-
+              </S.popBrowseWrap>
               <div
                 className={`pop-browse__btn-browse ${isEdit ? "_hide" : ""}`}
               >
@@ -233,10 +203,10 @@ function PopBrowse({ cardId }) {
                   Закрыть
                 </button>
               </div>
-            </div>
-          </div>
-        </div>
-      </div>
+            </S.popBrowseContent>
+          </S.popBbrowseBlock>
+        </S.popBrowseContainer>
+      </S.popBrowse>
     </>
   );
 }
