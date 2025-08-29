@@ -357,7 +357,7 @@ body {
   letter-spacing: -0.14px;
 }
 .form-new__input {
-  margin: 20px 0;
+  margin: 14px 0;
 }
 .form-new__area {
   max-width: 370px;

@@ -11,6 +11,15 @@ function PopBrowse({ cardId }) {
   const [card, setCard] = useState(null);
   const [isEdit, setIsEdit] = useState(false);
   const [editedDescription, setEditedDescription] = useState("");
+  const [editedStatus, setEditedStatus] = useState("");
+
+  const statusOptions = [
+    "Без статуса",
+    "Нужно сделать",
+    "В работе",
+    "Тестирование",
+    "Готово",
+  ];
 
   const handleDescriptionChange = (e) => {
     setEditedDescription(e.target.value);
@@ -38,11 +47,12 @@ function PopBrowse({ cardId }) {
 
     setCard(foundCard);
     setEditedDescription(foundCard.description || "");
+    setEditedStatus(foundCard.status || "");
   }, [tasks, cardId, navigate]);
 
   const handleSave = async () => {
     try {
-      await editTask(cardId, editedDescription);
+      await editTask(cardId, card.title, editedDescription, editedStatus);
       await getTasks();
       setIsEdit(false);
     } catch (err) {
@@ -76,26 +86,38 @@ function PopBrowse({ cardId }) {
                   <p className="_orange">{card.topic}</p>
                 </div>
               </div>
+
               <div className="pop-browse__status status">
                 <p className="status__p subttl">Статус</p>
                 <div className="status__themes">
-                  <div className={`status__theme ${isEdit ? "" : "_hide"}`}>
-                    <p>Без статуса</p>
-                  </div>
-                  <div className="status__theme _gray">
-                    <p className="_gray">{card.status}</p>
-                  </div>
-                  <div className={`status__theme ${isEdit ? "" : "_hide"}`}>
-                    <p>В работе</p>
-                  </div>
-                  <div className={`status__theme ${isEdit ? "" : "_hide"}`}>
-                    <p>Тестирование</p>
-                  </div>
-                  <div className={`status__theme ${isEdit ? "" : "_hide"}`}>
-                    <p>Готово</p>
-                  </div>
+                  {/* Текущий статус*/}
+                  {!isEdit && (
+                    <div className="status__theme _gray">
+                      <p className="_gray">{card.status}</p>
+                    </div>
+                  )}
+                  {/* Выбор статуса*/}
+                  {isEdit &&
+                    statusOptions.map((status) => (
+                      <div
+                        key={status}
+                        className={`status__theme ${
+                          editedStatus === status ? "_active-status" : ""
+                        }`}
+                        onClick={() => setEditedStatus(status)}
+                        style={{
+                          cursor: "pointer",
+                          backgroundColor:
+                            editedStatus === status ? "#565eef" : "transparent",
+                          color: editedStatus === status ? "white" : "#94a6be",
+                        }}
+                      >
+                        <p>{status}</p>
+                      </div>
+                    ))}
                 </div>
               </div>
+
               <div className="pop-browse__wrap">
                 <form
                   className="pop-browse__form form-browse"
@@ -111,22 +133,23 @@ function PopBrowse({ cardId }) {
                       name="text"
                       id="textArea01"
                       readOnly={!isEdit}
-                      value={card?.description || ""}
-                      onChange={isEdit ? handleDescriptionChange : undefined}
-                      placeholder={
-                        card?.description || "Введите описание задачи"
-                      }
+                      value={editedDescription}
+                      onChange={handleDescriptionChange}
+                      placeholder="Введите описание задачи"
                     ></textarea>
                   </div>
                 </form>
                 <Calendar />
               </div>
+
               <div className="theme-down__categories theme-down">
                 <p className="categories__p subttl">Категория</p>
                 <div className="categories__theme _orange _active-category">
-                  <p className="_orange">Web Design</p>
+                  <p className="_orange">{card.topic}</p>
                 </div>
               </div>
+
+              {/* Кнопки в режиме просмотра */}
               <div
                 className={`pop-browse__btn-browse ${isEdit ? "_hide" : ""}`}
               >
@@ -135,7 +158,7 @@ function PopBrowse({ cardId }) {
                     className="btn-browse__edit _btn-bor _hover03"
                     onClick={handleEditClick}
                   >
-                    <a href="#">Редактировать задачу</a>
+                    Редактировать задачу
                   </button>
                   <button
                     className="btn-browse__delete _btn-bor _hover03"
@@ -144,27 +167,31 @@ function PopBrowse({ cardId }) {
                     Удалить задачу
                   </button>
                 </div>
-                <button className="btn-browse__close _btn-bg _hover01">
-                  <a onClick={handleClose}>Закрыть</a>
+                <button
+                  className="btn-browse__close _btn-bg _hover01"
+                  onClick={handleClose}
+                >
+                  Закрыть
                 </button>
               </div>
+
+              {/* Кнопки в режиме редактирования */}
               <div className={`pop-browse__btn-edit ${isEdit ? "" : "_hide"}`}>
                 <div className="btn-group">
                   <button
                     className="btn-edit__edit _btn-bg _hover01"
                     onClick={handleSave}
                   >
-                    <a href="#">Сохранить</a>
+                    Сохранить
                   </button>
                   <button
                     className="btn-edit__edit _btn-bor _hover03"
                     onClick={handleCancelClick}
                   >
-                    <a href="#">Отменить</a>
+                    Отменить
                   </button>
                   <button
                     className="btn-edit__delete _btn-bor _hover03"
-                    id="btnDelete"
                     onClick={handleDelete}
                   >
                     Удалить задачу
@@ -174,7 +201,7 @@ function PopBrowse({ cardId }) {
                   className="btn-edit__close _btn-bg _hover01"
                   onClick={handleClose}
                 >
-                  <a href="#">Закрыть</a>
+                  Закрыть
                 </button>
               </div>
             </div>
