@@ -215,6 +215,7 @@ export const categoriesThemes = styled.div`
   flex-wrap: nowrap;
   align-items: flex-start;
   justify-content: flex-start;
+  gap: 7px;
 `;
 
 export const categoriesTheme = styled.div`
