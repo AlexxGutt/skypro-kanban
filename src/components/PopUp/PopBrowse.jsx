@@ -52,7 +52,13 @@ function PopBrowse({ cardId }) {
 
   const handleSave = async () => {
     try {
-      await editTask(cardId, card.title, editedDescription, editedStatus);
+      await editTask(
+        cardId,
+        card.title,
+        editedDescription,
+        editedStatus,
+        card.topic
+      );
       await getTasks();
       setIsEdit(false);
     } catch (err) {
@@ -88,50 +94,25 @@ function PopBrowse({ cardId }) {
 
               <S.status>
                 <S.statusPSubttl>Статус</S.statusPSubttl>
-                <S.statusThemes>
-                  {/* Текущий статус*/}
-                  {!isEdit && (
-                    <div
-                      className="status__theme _gray"
-                      style={{
-                        backgroundColor: "#94A6BE",
-                        color: "#ffffff",
-                        padding: "11px 14px 10px",
-                        borderRadius: "24px",
-                        border: "0.7px solid rgba(148, 166, 190, 0.4)",
-                      }}
-                    >
-                      <p
-                        style={{
-                          color: "#ffffff",
-                          margin: 0,
-                          fontSize: "14px",
-                        }}
-                      >
-                        {card.status}
-                      </p>
-                    </div>
-                  )}
-                  {/* Выбор статуса*/}
-                  {isEdit &&
-                    statusOptions.map((status) => (
-                      <div
+                {!isEdit && (
+                  <S.currentStatus>
+                    <p>{card.status}</p>
+                  </S.currentStatus>
+                )}
+                {/* Выбор статуса*/}
+                {isEdit && (
+                  <S.statusThemes>
+                    {statusOptions.map((status) => (
+                      <S.statusOption
                         key={status}
-                        className={`status__theme ${
-                          editedStatus === status ? "_active-status" : ""
-                        }`}
+                        $isActive={editedStatus === status}
                         onClick={() => setEditedStatus(status)}
-                        style={{
-                          cursor: "pointer",
-                          backgroundColor:
-                            editedStatus === status ? "#94A6BE" : "transparent",
-                          color: editedStatus === status ? "white" : "#94a6be",
-                        }}
                       >
                         <p>{status}</p>
-                      </div>
+                      </S.statusOption>
                     ))}
-                </S.statusThemes>
+                  </S.statusThemes>
+                )}
               </S.status>
 
               <S.popBrowseWrap>
@@ -150,59 +131,24 @@ function PopBrowse({ cardId }) {
                 </S.popBrowseForm>
                 <Calendar />
               </S.popBrowseWrap>
-              <div
-                className={`pop-browse__btn-browse ${isEdit ? "_hide" : ""}`}
-              >
-                <div className="btn-group">
-                  <button
-                    className="btn-browse__edit _btn-bor _hover03"
-                    onClick={handleEditClick}
-                  >
+              <S.popBrowseBtnBrowse $type="browse" $isEdit={isEdit}>
+                <S.btnGroup>
+                  <S.btnBor onClick={handleEditClick}>
                     Редактировать задачу
-                  </button>
-                  <button
-                    className="btn-browse__delete _btn-bor _hover03"
-                    onClick={handleDelete}
-                  >
-                    Удалить задачу
-                  </button>
-                </div>
-                <button
-                  className="btn-browse__close _btn-bg _hover01"
-                  onClick={handleClose}
-                >
-                  Закрыть
-                </button>
-              </div>
+                  </S.btnBor>
+                  <S.btnBor onClick={handleDelete}>Удалить задачу</S.btnBor>
+                </S.btnGroup>
+                <S.btnBg onClick={handleClose}>Закрыть</S.btnBg>
+              </S.popBrowseBtnBrowse>
 
-              <div className={`pop-browse__btn-edit ${isEdit ? "" : "_hide"}`}>
-                <div className="btn-group">
-                  <button
-                    className="btn-edit__edit _btn-bg _hover01"
-                    onClick={handleSave}
-                  >
-                    Сохранить
-                  </button>
-                  <button
-                    className="btn-edit__edit _btn-bor _hover03"
-                    onClick={handleCancelClick}
-                  >
-                    Отменить
-                  </button>
-                  <button
-                    className="btn-edit__delete _btn-bor _hover03"
-                    onClick={handleDelete}
-                  >
-                    Удалить задачу
-                  </button>
-                </div>
-                <button
-                  className="btn-edit__close _btn-bg _hover01"
-                  onClick={handleClose}
-                >
-                  Закрыть
-                </button>
-              </div>
+              <S.popBrowseBtnBrowse $type="edit" $isEdit={isEdit}>
+                <S.btnGroup>
+                  <S.btnBg onClick={handleSave}>Сохранить</S.btnBg>
+                  <S.btnBor onClick={handleCancelClick}>Отменить</S.btnBor>
+                  <S.btnBor onClick={handleDelete}>Удалить задачу</S.btnBor>
+                </S.btnGroup>
+                <S.btnBg onClick={handleClose}>Закрыть</S.btnBg>
+              </S.popBrowseBtnBrowse>
             </S.popBrowseContent>
           </S.popBbrowseBlock>
         </S.popBrowseContainer>

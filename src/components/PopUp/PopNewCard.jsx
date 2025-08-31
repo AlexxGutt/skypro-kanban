@@ -1,8 +1,8 @@
 import { useNavigate } from "react-router-dom";
-import { GlobalStyle } from "../../Global.style";
 import Calendar from "../Calendar/Calendar";
 import { useContext, useRef, useState } from "react";
 import { TaskContext } from "../../context/TaskContext";
+import * as S from "./PopNewCard.style";
 
 function PopNewCard() {
   const { addTask } = useContext(TaskContext);
@@ -61,6 +61,7 @@ function PopNewCard() {
       await addTask({
         title: formData.title,
         description: formData.description,
+        topic: formData.category,
       });
       navigate("/");
     } catch (err) {
@@ -68,35 +69,43 @@ function PopNewCard() {
     }
   };
 
+  const topicColor = {
+    "Web Design": { backgroundColor: "#ffe4c2", color: "#ff6d00" },
+    "Research": { backgroundColor: "#b4fdd1", color: "#06b16e" },
+    "Copywriting": { backgroundColor: "#e9d4ff", color: "#9a48f1" },
+  };
+
+  const handleCategorySelect = (category) => {
+    setFormData({
+      ...formData,
+      category: category,
+    });
+  };
+
   return (
     <>
-      <GlobalStyle />
       {error && (
         <div className="error-message" style={{ color: "red" }}>
           {error}
         </div>
       )}
-      <div className="pop-new-card" id="popNewCard">
-        <div className="pop-new-card__container">
-          <div className="pop-new-card__block">
-            <div className="pop-new-card__content">
-              <h3 className="pop-new-card__ttl">Создание задачи</h3>
-              <a className="pop-new-card__close" onClick={handleClose}>
+      <S.popNewCard>
+        <S.popNewCardContainer>
+          <S.popNewCardBlock>
+            <S.popNewCardContent>
+              <S.popNewCardTtl>Создание задачи</S.popNewCardTtl>
+              <S.popNewCardClose onClick={handleClose}>
                 &#10006;
-              </a>
-              <div className="pop-new-card__wrap">
-                <form
-                  ref={formRef}
-                  className="pop-new-card__form form-new"
+              </S.popNewCardClose>
+              <S.popNewCardWrap>
+                <S.popNewCardForm
                   id="formNewCard"
+                  ref={formRef}
                   onSubmit={handleSubmit}
                 >
-                  <div className="form-new__block">
-                    <label htmlFor="formTitle" className="subttl">
-                      Название задачи
-                    </label>
-                    <input
-                      className="form-new__input"
+                  <S.formNewBlock>
+                    <S.Subttl>Название задачи</S.Subttl>
+                    <S.formNewInput
                       type="text"
                       name="title"
                       id="formTitle"
@@ -105,50 +114,47 @@ function PopNewCard() {
                       placeholder="Введите название задачи..."
                       autoFocus
                     />
-                  </div>
-                  <div className="form-new__block">
-                    <label htmlFor="textArea" className="subttl">
-                      Описание задачи
-                    </label>
-                    <textarea
-                      className="form-new__area"
+                  </S.formNewBlock>
+                  <S.formNewBlock>
+                    <S.Subttl htmlFor="textArea">Описание задачи</S.Subttl>
+                    <S.formNewArea
                       name="description"
                       id="textArea"
                       value={formData.description}
                       onChange={handleChange}
                       placeholder="Введите описание задачи..."
-                    ></textarea>
-                  </div>
-                </form>
+                    ></S.formNewArea>
+                  </S.formNewBlock>
+                </S.popNewCardForm>
                 <Calendar />
-              </div>
-              <div className="pop-new-card__categories categories">
-                <p className="categories__p subttl">Категория</p>
-                <div className="categories__themes">
-                  <div className="categories__theme _orange _active-category">
-                    <p className="_orange">Web Design</p>
-                  </div>
-                  <div className="categories__theme _green">
-                    <p className="_green">Research</p>
-                  </div>
-                  <div className="categories__theme _purple">
-                    <p className="_purple">Copywriting</p>
-                  </div>
-                </div>
-                <button
-                  className="form-new__create _hover01"
+              </S.popNewCardWrap>
+              <S.categories>
+                <S.categoriesP>Категория</S.categoriesP>
+                <S.categoriesThemes>
+                  {Object.keys(topicColor).map((category) => (
+                    <S.categoriesTheme
+                      key={category}
+                      $topic={category}
+                      $isActive={formData.category === category}
+                      onClick={() => handleCategorySelect(category)}
+                    >
+                      <p>{category}</p>
+                    </S.categoriesTheme>
+                  ))}
+                </S.categoriesThemes>
+                <S.formNewCreate
                   id="btnCreate"
                   type="submit"
                   form="formNewCard"
                   onClick={handleBattonClick}
                 >
                   Создать задачу
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
+                </S.formNewCreate>
+              </S.categories>
+            </S.popNewCardContent>
+          </S.popNewCardBlock>
+        </S.popNewCardContainer>
+      </S.popNewCard>
     </>
   );
 }

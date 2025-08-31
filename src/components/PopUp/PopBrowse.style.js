@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 
 const topicColor = {
   "Web Design": { backgroundColor: "#ffe4c2", color: "#ff6d00" },
@@ -16,6 +16,9 @@ export const popBrowse = styled.div`
   top: 0;
   left: 0;
   z-index: 7;
+  @media screen and (max-width: 660px) {
+    top: 70px;
+  }
 `;
 
 export const popBrowseContainer = styled.div`
@@ -28,6 +31,10 @@ export const popBrowseContainer = styled.div`
   align-items: center;
   justify-content: center;
   background: rgba(0, 0, 0, 0.4);
+  @media screen and (max-width: 660px) {
+    padding: 0;
+    justify-content: flex-start;
+  }
 `;
 
 export const popBbrowseBlock = styled.div`
@@ -40,6 +47,12 @@ export const popBbrowseBlock = styled.div`
   border-radius: 10px;
   border: 0.7px solid #d4dbe5;
   position: relative;
+  @media screen and (max-width: 660px) {
+    border-radius: 0;
+  }
+  @media screen and (max-width: 495px) {
+    padding: 20px 16px 32px;
+  }
 `;
 
 export const popBrowseContent = styled.div`
@@ -72,7 +85,7 @@ export const categoriesThemeTopActiveCategory = styled.div`
   opacity: 1 !important;
   background-color: ${(props) => topicColor[props.$topic].backgroundColor};
   color: ${(props) => topicColor[props.$topic].color};
-  p {
+  & p {
     font-size: 14px;
     font-weight: 600;
     line-height: 14px;
@@ -90,13 +103,6 @@ export const statusPSubttl = styled.p`
   font-size: 14px;
   font-weight: 600;
   line-height: 1;
-`;
-
-export const statusThemes = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-  align-items: flex-start;
-  justify-content: flex-start;
 `;
 
 export const popBrowseWrap = styled.div`
@@ -157,5 +163,131 @@ export const formBrowseArea = styled.textarea`
   @media screen and (max-width: 495px) {
     max-width: 100%;
     height: 37px;
+  }
+`;
+
+export const btnGroup = styled.div`
+  & button {
+    margin-right: 8px;
+  }
+
+  @media screen and (max-width: 495px) {
+    width: 100%;
+    margin-right: 0px;
+  }
+`;
+
+export const hover01 = css`
+  &:hover {
+    background-color: #33399b;
+  }
+`;
+
+export const hover03 = css`
+  &:hover {
+    background-color: #33399b;
+    color: #ffffff;
+  }
+  &:hover a {
+    color: #ffffff;
+  }
+`;
+
+export const btnBg = styled.button`
+  border-radius: 4px;
+  background: #565eef;
+  border: none;
+  outline: none;
+  color: #ffffff;
+  & a {
+    color: #ffffff;
+  }
+  ${hover01}
+`;
+
+export const btnBor = styled.button`
+  border-radius: 4px;
+  border: 0.7px solid var(--palette-navy-60, #565eef);
+  outline: none;
+  background: transparent;
+  color: #565eef;
+  & a {
+    color: #565eef;
+  }
+  ${hover03}
+`;
+
+export const popBrowseBtnBrowse = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  justify-content: space-between;
+
+  & button {
+    height: 30px;
+    margin-bottom: 10px;
+    padding: 0 14px;
+  }
+
+  ${(props) => props.$type === "browse" && props.$isEdit && `display: none`}
+
+  ${(props) => props.$type === "edit" && !props.$isEdit && `display: none`}
+`;
+
+export const statusThemes = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  justify-content: flex-start;
+`;
+
+export const currentStatus = styled.div`
+  background-color: #94a6be;
+  color: #ffffff;
+  padding: 11px 14px 10px;
+  border-radius: 24px;
+  border: 0.7px solid rgba(148, 166, 190, 0.4);
+  display: inline-block;
+  width: auto;
+  max-width: 100%;
+  margin-right: 7px; /* ← ДОБАВИТЬ */
+  margin-bottom: 7px; /* ← ДОБАВИТЬ */
+
+  p {
+    color: #ffffff;
+    margin: 0;
+    font-size: 14px;
+    line-height: 1; /* ← ДОБАВИТЬ */
+    letter-spacing: -0.14px; /* ← ДОБАВИТЬ */
+  }
+`;
+
+export const statusOption = styled.div`
+  padding: 11px 14px 10px;
+  border-radius: 24px;
+  border: 0.7px solid rgba(148, 166, 190, 0.4);
+  margin-right: 7px;
+  margin-bottom: 7px;
+  cursor: pointer;
+
+  background-color: transparent;
+  color: #94a6be;
+
+  ${(props) =>
+    props.$isActive &&
+    `
+    background-color: #94A6BE;
+    color: white;
+  `}
+
+  p {
+    margin: 0;
+    font-size: 14px;
+    line-height: 1;
+    letter-spacing: -0.14px;
+  }
+
+  &:hover {
+    background-color: #eaeef6;
   }
 `;
