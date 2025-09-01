@@ -18,6 +18,8 @@ function PopNewCard() {
     category: "Web Design",
   });
 
+  const [selectedDate, setSelectedDate] = useState(new Date());
+
   const [errors, setErrors] = useState({
     title: false,
     description: false,
@@ -52,6 +54,10 @@ function PopNewCard() {
     setError("");
   };
 
+  const handleDateChange = (date) => {
+    setSelectedDate(date);
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!validateForm()) {
@@ -62,6 +68,7 @@ function PopNewCard() {
         title: formData.title,
         description: formData.description,
         topic: formData.category,
+        date: selectedDate,
       });
       navigate("/");
     } catch (err) {
@@ -126,7 +133,10 @@ function PopNewCard() {
                     ></S.formNewArea>
                   </S.formNewBlock>
                 </S.popNewCardForm>
-                <Calendar />
+                <Calendar
+                  selectedDate={selectedDate}
+                  onDateChange={handleDateChange}
+                />
               </S.popNewCardWrap>
               <S.categories>
                 <S.categoriesP>Категория</S.categoriesP>

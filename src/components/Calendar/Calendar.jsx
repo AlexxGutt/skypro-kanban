@@ -1,14 +1,96 @@
+import { useState } from "react";
+import {
+  format,
+  addMonths,
+  subMonths,
+  startOfMonth,
+  endOfMonth,
+  startOfWeek,
+  endOfWeek,
+  addDays,
+  isSameMonth,
+  isSameDay,
+} from "date-fns";
+import { ru } from "date-fns/locale";
 import * as S from "./Calendar.style";
-function Calendar() {
+
+function Calendar({
+  selectedDate: externalDate,
+  onDateChange,
+  isReadOnly = false,
+}) {
+  const [currentDate, setCurrentDate] = useState(new Date());
+  const [internalSelectedDate, setInternalSelectedDate] = useState(new Date());
+
+  const selectedDate =
+    externalDate !== undefined ? externalDate : internalSelectedDate;
+
+  const nextMonth = () => {
+    if (!isReadOnly) {
+      setCurrentDate(addMonths(currentDate, 1));
+    }
+  };
+
+  const prevMonth = () => {
+    if (!isReadOnly) {
+      setCurrentDate(subMonths(currentDate, 1));
+    }
+  };
+
+  const onDateClick = (day) => {
+    if (!isReadOnly) {
+      if (onDateChange) {
+        onDateChange(day);
+      } else {
+        setInternalSelectedDate(day);
+      }
+    }
+  };
+
+  const renderHeader = () => {
+    return format(currentDate, "LLLL yyyy", { locale: ru });
+  };
+
+  const renderDays = () => {
+    const monthStart = startOfMonth(currentDate);
+    const monthEnd = endOfMonth(monthStart);
+    const startDate = startOfWeek(monthStart, { weekStartsOn: 1 });
+    const endDate = endOfWeek(monthEnd, { weekStartsOn: 1 });
+
+    const days = [];
+    let day = startDate;
+
+    while (day <= endDate) {
+      const cloneDay = day;
+      days.push(
+        <S.calendarCell
+          key={day.toString()}
+          className={`
+            ${!isSameMonth(day, monthStart) ? "disabled" : ""}
+            ${isSameDay(day, selectedDate) ? "selected" : ""}
+            ${isSameDay(day, new Date()) ? "today" : ""}
+            ${isReadOnly ? "readonly" : ""}
+          `}
+          onClick={() => onDateClick(cloneDay)}
+        >
+          {format(day, "d")}
+        </S.calendarCell>
+      );
+      day = addDays(day, 1);
+    }
+
+    return <S.calendarCells>{days}</S.calendarCells>;
+  };
+
   return (
-    <>
-      <S.calendar>
-        <S.calendarTtl>Даты</S.calendarTtl>
-        <S.calendarBlock>
-          <S.calendarNav>
-            <S.calendarMonth>Сентябрь 2023</S.calendarMonth>
+    <S.calendar>
+      <S.calendarTtl>Даты</S.calendarTtl>
+      <S.calendarBlock>
+        <S.calendarNav>
+          <S.calendarMonth>{renderHeader()}</S.calendarMonth>
+          {!isReadOnly && (
             <S.navActions>
-              <S.navAction data-action="prev">
+              <S.navAction data-action="prev" onClick={prevMonth}>
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   width="6"
@@ -18,7 +100,7 @@ function Calendar() {
                   <path d="M5.72945 1.95273C6.09018 1.62041 6.09018 1.0833 5.72945 0.750969C5.36622 0.416344 4.7754 0.416344 4.41218 0.750969L0.528487 4.32883C-0.176162 4.97799 -0.176162 6.02201 0.528487 6.67117L4.41217 10.249C4.7754 10.5837 5.36622 10.5837 5.72945 10.249C6.09018 9.9167 6.09018 9.37959 5.72945 9.04727L1.87897 5.5L5.72945 1.95273Z" />
                 </svg>
               </S.navAction>
-              <S.navAction data-action="next">
+              <S.navAction data-action="next" onClick={nextMonth}>
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   width="6"
@@ -29,65 +111,38 @@ function Calendar() {
                 </svg>
               </S.navAction>
             </S.navActions>
-          </S.calendarNav>
-          <S.calendarContent>
-            <S.calendarDaysNames>
-              <S.calendarDayName>пн</S.calendarDayName>
-              <S.calendarDayName>вт</S.calendarDayName>
-              <S.calendarDayName>ср</S.calendarDayName>
-              <S.calendarDayName>чт</S.calendarDayName>
-              <S.calendarDayName>пт</S.calendarDayName>
-              <S.calendarDayName>сб</S.calendarDayName>
-              <S.calendarDayName>вс</S.calendarDayName>
-            </S.calendarDaysNames>
-            <S.calendarCells>
-              <S.calendarCell>28</S.calendarCell>
-              <S.calendarCell>29</S.calendarCell>
-              <S.calendarCell>30</S.calendarCell>
-              <S.calendarCell>31</S.calendarCell>
-              <S.calendarCell>1</S.calendarCell>
-              <S.calendarCell>2</S.calendarCell>
-              <S.calendarCell>3</S.calendarCell>
-              <S.calendarCell>4</S.calendarCell>
-              <S.calendarCell>5</S.calendarCell>
-              <S.calendarCell>6</S.calendarCell>
-              <S.calendarCell>7</S.calendarCell>
-              <S.calendarCell>8</S.calendarCell>
-              <S.calendarCell>9</S.calendarCell>
-              <S.calendarCell>10</S.calendarCell>
-              <S.calendarCell>11</S.calendarCell>
-              <S.calendarCell>12</S.calendarCell>
-              <S.calendarCell>13</S.calendarCell>
-              <S.calendarCell>14</S.calendarCell>
-              <S.calendarCell>15</S.calendarCell>
-              <S.calendarCell>16</S.calendarCell>
-              <S.calendarCell>17</S.calendarCell>
-              <S.calendarCell>18</S.calendarCell>
-              <S.calendarCell>19</S.calendarCell>
-              <S.calendarCell>20</S.calendarCell>
-              <S.calendarCell>21</S.calendarCell>
-              <S.calendarCell>22</S.calendarCell>
-              <S.calendarCell>23</S.calendarCell>
-              <S.calendarCell>24</S.calendarCell>
-              <S.calendarCell>25</S.calendarCell>
-              <S.calendarCell>26</S.calendarCell>
-              <S.calendarCell>27</S.calendarCell>
-              <S.calendarCell>28</S.calendarCell>
-              <S.calendarCell>29</S.calendarCell>
-              <S.calendarCell>30</S.calendarCell>
-              <S.calendarCell>1</S.calendarCell>
-            </S.calendarCells>
-          </S.calendarContent>
+          )}
+        </S.calendarNav>
+        <S.calendarContent>
+          <S.calendarDaysNames>
+            <S.calendarDayName>пн</S.calendarDayName>
+            <S.calendarDayName>вт</S.calendarDayName>
+            <S.calendarDayName>ср</S.calendarDayName>
+            <S.calendarDayName>чт</S.calendarDayName>
+            <S.calendarDayName>пт</S.calendarDayName>
+            <S.calendarDayName>сб</S.calendarDayName>
+            <S.calendarDayName>вс</S.calendarDayName>
+          </S.calendarDaysNames>
+          {renderDays()}
+        </S.calendarContent>
 
-          <input type="hidden" id="datepick_value" value="08.09.2023" />
-          <S.calendarPeriod>
-            <S.calendarP>
-              Выберите срок исполнения <span className="date-control"></span>.
-            </S.calendarP>
-          </S.calendarPeriod>
-        </S.calendarBlock>
-      </S.calendar>
-    </>
+        <input
+          type="hidden"
+          id="datepick_value"
+          value={format(selectedDate, "dd.MM.yyyy")}
+        />
+        <S.calendarPeriod>
+          <S.calendarP>
+            Срок исполнения{" "}
+            <span className="date-control">
+              {format(selectedDate, "dd.MM.yyyy")}
+            </span>
+            .
+          </S.calendarP>
+        </S.calendarPeriod>
+      </S.calendarBlock>
+    </S.calendar>
   );
 }
+
 export default Calendar;

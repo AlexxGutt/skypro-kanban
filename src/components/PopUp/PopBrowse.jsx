@@ -4,6 +4,7 @@ import Calendar from "../Calendar/Calendar";
 import { useContext, useEffect, useState } from "react";
 import { TaskContext } from "../../context/TaskContext";
 import { editTask } from "../../services/getTasks";
+import { parseISO } from "date-fns";
 
 function PopBrowse({ cardId }) {
   const navigate = useNavigate();
@@ -12,6 +13,7 @@ function PopBrowse({ cardId }) {
   const [isEdit, setIsEdit] = useState(false);
   const [editedDescription, setEditedDescription] = useState("");
   const [editedStatus, setEditedStatus] = useState("");
+  const [selectedDate, setSelectedDate] = useState(new Date());
 
   const statusOptions = [
     "Без статуса",
@@ -25,11 +27,20 @@ function PopBrowse({ cardId }) {
     setEditedDescription(e.target.value);
     setCard((prev) => ({ ...prev, description: e.target.value }));
   };
+
+  const handleDateChange = (date) => {
+    setSelectedDate(date);
+  };
+
   const handleEditClick = () => {
     setIsEdit(true);
   };
+
   const handleCancelClick = () => {
     setIsEdit(false);
+    if (card && card.date) {
+      setSelectedDate(parseISO(card.date));
+    }
   };
 
   const handleClose = () => {
@@ -48,6 +59,11 @@ function PopBrowse({ cardId }) {
     setCard(foundCard);
     setEditedDescription(foundCard.description || "");
     setEditedStatus(foundCard.status || "");
+
+    // Устанавливаем дату из карточки
+    if (foundCard.date) {
+      setSelectedDate(parseISO(foundCard.date));
+    }
   }, [tasks, cardId, navigate]);
 
   const handleSave = async () => {
@@ -57,7 +73,8 @@ function PopBrowse({ cardId }) {
         card.title,
         editedDescription,
         editedStatus,
-        card.topic
+        card.topic,
+        selectedDate
       );
       await getTasks();
       setIsEdit(false);
@@ -75,6 +92,7 @@ function PopBrowse({ cardId }) {
       await getTasks();
     }
   };
+
   if (!card) {
     return null;
   }
@@ -99,7 +117,6 @@ function PopBrowse({ cardId }) {
                     <p>{card.status}</p>
                   </S.currentStatus>
                 )}
-                {/* Выбор статуса*/}
                 {isEdit && (
                   <S.statusThemes>
                     {statusOptions.map((status) => (
@@ -129,7 +146,11 @@ function PopBrowse({ cardId }) {
                     ></S.formBrowseArea>
                   </S.formBrowseBlock>
                 </S.popBrowseForm>
-                <Calendar />
+                <Calendar
+                  selectedDate={selectedDate}
+                  onDateChange={handleDateChange}
+                  isReadOnly={!isEdit}
+                />
               </S.popBrowseWrap>
               <S.popBrowseBtnBrowse $type="browse" $isEdit={isEdit}>
                 <S.btnGroup>

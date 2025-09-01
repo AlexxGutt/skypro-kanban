@@ -126,6 +126,34 @@ export const calendarCell = styled.div`
     color: #94a6be;
     background-color: #eaeef6;
   }
+  &.selected {
+    background-color: #94a6be;
+    color: white;
+  }
+  &.today {
+    border: 1px solid #94a6be;
+  }
+  &.disabled {
+    color: #ccc;
+    cursor: not-allowed;
+
+    &:hover {
+      background-color: transparent;
+    }
+  }
+  &.readonly {
+    cursor: default;
+
+    &:hover {
+      background-color: transparent;
+      color: #94a6be;
+    }
+
+    &.selected {
+      background-color: #94a6be;
+      color: white;
+    }
+  }
 
   @media screen and (max-width: 660px) {
     width: 42px;
@@ -145,6 +173,7 @@ export const calendarP = styled.p`
   color: #94a6be;
   font-size: 10px;
   line-height: 1;
+  margin-top: 10px;
   & span {
     color: #000000;
   }

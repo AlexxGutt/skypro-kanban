@@ -64,7 +64,14 @@ export async function deleteTask(taskId) {
   }
 }
 
-export async function editTask(taskId, title, description, newStatus, topic) {
+export async function editTask(
+  taskId,
+  title,
+  description,
+  newStatus,
+  topic,
+  date
+) {
   const token = getToken();
   try {
     const response = await axios.put(
@@ -74,6 +81,7 @@ export async function editTask(taskId, title, description, newStatus, topic) {
         status: newStatus,
         title,
         topic,
+        date,
       },
       {
         headers: {
