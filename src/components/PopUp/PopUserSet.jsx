@@ -1,6 +1,5 @@
 import { useEffect } from "react";
 import { Link } from "react-router-dom";
-import { GlobalStyle } from "../../Global.style";
 import * as S from "./PopUserSet.style";
 function PopUserSet({ isClose }) {
   useEffect(() => {

@@ -58,6 +58,10 @@ export const popBbrowseBlock = styled.div`
 export const popBrowseContent = styled.div`
   display: block;
   text-align: left;
+  @media screen and (max-width: 495px) {
+    display: block;
+    margin-bottom: 20px;
+  }
 `;
 
 export const popBrowseTopBlock = styled.div`
@@ -90,6 +94,9 @@ export const categoriesThemeTopActiveCategory = styled.div`
     font-weight: 600;
     line-height: 14px;
     white-space: nowrap;
+  }
+  @media screen and (max-width: 495px) {
+    display: none;
   }
 `;
 
@@ -227,6 +234,10 @@ export const popBrowseBtnBrowse = styled.div`
     height: 30px;
     margin-bottom: 10px;
     padding: 0 14px;
+    @media screen and (max-width: 495px) {
+      width: 100%;
+      height: 40px;
+    }
   }
 
   ${(props) => props.$type === "browse" && props.$isEdit && `display: none`}

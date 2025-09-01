@@ -71,6 +71,7 @@ ul li {
     opacity: 1;
   }
 }
+
 html,
 body {
   width: 100%;
@@ -190,20 +191,6 @@ body {
   font-weight: 700;
 }
 
-@media screen and (max-width: 1200px) {
-
-  .cards__card {
-    width: 220px;
-    height: 130px;
-    background-color: #ffffff;
-    border-radius: 10px;
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    justify-content: stretch;
-    padding: 15px 13px 19px;
-  }
-}
 @media screen and (max-width: 660px) {
   .calendar {
     max-width: 340px;
@@ -236,108 +223,13 @@ body {
     height: 42px;
     font-size: 14px;
   }
-  .pop-browse {
-    top: 70px;
-  }
-  .pop-browse__container {
-    padding: 0;
-    justify-content: flex-start;
-  }
-  .pop-browse__block {
-    border-radius: 0;
-  }
-  .pop-browse__wrap {
-    display: block;
-  }
 }
 @media screen and (max-width: 495px) {
 
-  .header__btn-main-new {
-    z-index: 3;
-    position: fixed;
-    left: 16px;
-    bottom: 30px;
-    top: auto;
-    width: calc(100vw - 32px);
-    height: 40px;
-    border-radius: 4px;
-    margin-right: 0;
-  }
   .pop-new-card__calendar {
     width: 100%;
-  }
-  .pop-browse__block {
-    padding: 20px 16px 32px;
-  }
-  .pop-browse__content .theme-down {
-    display: block;
-    margin-bottom: 20px;
-  }
-  .pop-browse__content .theme-top {
-    display: none;
   }
   .pop-browse__calendar {
     width: 100%;
   }
-  .pop-browse__btn-browse button,
-  .pop-browse__btn-edit button {
-    width: 100%;
-    height: 40px;
-  }
-  .pop-browse__btn-browse .btn-group,
-  .pop-browse__btn-edit .btn-group {
-    width: 100%;
-  }
-  .pop-browse__btn-browse .btn-group button,
-  .pop-browse__btn-edit .btn-group button {
-    margin-right: 0px;
-  }
 }
-@media only screen and (max-width: 375px) {
-  .pop-exit__block {
-    padding: 50px 20px;
-  }
-  .pop-exit__exit-yes {
-    width: 100%;
-    height: 40px;
-    margin-right: 0;
-    margin-bottom: 10px;
-  }
-  .pop-exit__exit-no {
-    width: 100%;
-    height: 40px;
-  }
-  .pop-exit__form-group {
-    display: block;
-  }
-}
-Глобал Логина и Регистрации
-
-a,
-a:visited {
-  text-decoration: none;
-  cursor: pointer;
-}
-
-button,
-._btn {
-  cursor: pointer;
-}
-
-ul li {
-  list-style: none;
-}
-
-html,
-body {
-  width: 100%;
-  height: 100%;
-  font-family: "Roboto", sans-serif;
-}
-
-div,
-button,
-a {
-  font-family: "Roboto", sans-serif;
-}
-`;
