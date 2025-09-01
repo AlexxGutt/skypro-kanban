@@ -79,23 +79,4 @@ body {
   font-family: "Roboto", Arial, Helvetica, sans-serif;
   color: #000000;
 }
-
-._active-day {
-  background-color: #94a6be;
-  color: #ffffff;
-}
-
-
-@media screen and (max-width: 660px) {
-
-  .calendar .date-create {
-    display: none;
-    margin-bottom: 7px;
-  }
-}
-@media screen and (max-width: 495px) {
-  .pop-browse__calendar {
-    width: 100%;
-  }
-}
 `;
