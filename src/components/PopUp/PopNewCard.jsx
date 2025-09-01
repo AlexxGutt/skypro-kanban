@@ -19,29 +19,60 @@ function PopNewCard() {
   });
 
   const [selectedDate, setSelectedDate] = useState(new Date());
-
   const [errors, setErrors] = useState({
-    title: false,
-    description: false,
+    title: "",
+    description: "",
   });
-
-  const [error, setError] = useState("");
+  const [formError, setFormError] = useState("");
 
   const handleClose = () => {
     navigate(-1);
   };
 
   const validateForm = () => {
+    let isValid = true;
     const newErrors = {
-      title: !formData.title.trim(),
-      description: !formData.description.trim(),
+      title: "",
+      description: "",
     };
 
+    if (!formData.title.trim()) {
+      newErrors.title = "Название задачи обязательно";
+      isValid = false;
+    } else if (formData.title.trim().length < 3) {
+      newErrors.title = "Название должно содержать минимум 3 символа";
+      isValid = false;
+    } else if (/^\s+$/.test(formData.title)) {
+      newErrors.title = "Название не может состоять только из пробелов";
+      isValid = false;
+    }
+
+    if (!formData.description.trim()) {
+      newErrors.description = "Описание задачи обязательно";
+      isValid = false;
+    } else if (formData.description.trim().length < 5) {
+      newErrors.description = "Описание должно содержать минимум 5 символов";
+      isValid = false;
+    } else if (/^\s+$/.test(formData.description)) {
+      newErrors.description = "Описание не может состоять только из пробелов";
+      isValid = false;
+    }
+
     setErrors(newErrors);
-    setError(
-      Object.values(newErrors).some(Boolean) ? "Заполните все поля" : ""
-    );
-    return !Object.values(newErrors).some(Boolean);
+
+    if (!isValid) {
+      setFormError("Пожалуйста, исправьте ошибки в форме");
+
+      if (newErrors.title) {
+        document.getElementById("formTitle")?.focus();
+      } else if (newErrors.description) {
+        document.getElementById("textArea")?.focus();
+      }
+    } else {
+      setFormError("");
+    }
+
+    return isValid;
   };
 
   const handleChange = (e) => {
@@ -50,8 +81,13 @@ function PopNewCard() {
       ...formData,
       [name]: value,
     });
-    setErrors({ ...errors, [name]: false });
-    setError("");
+
+    if (errors[name]) {
+      setErrors({ ...errors, [name]: "" });
+    }
+    if (formError) {
+      setFormError("");
+    }
   };
 
   const handleDateChange = (date) => {
@@ -60,19 +96,21 @@ function PopNewCard() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
     if (!validateForm()) {
       return;
     }
+
     try {
       await addTask({
-        title: formData.title,
-        description: formData.description,
+        title: formData.title.trim(),
+        description: formData.description.trim(),
         topic: formData.category,
         date: selectedDate,
       });
       navigate("/");
     } catch (err) {
-      setError(err.message);
+      setFormError(err.message);
     }
   };
 
@@ -91,11 +129,7 @@ function PopNewCard() {
 
   return (
     <>
-      {error && (
-        <div className="error-message" style={{ color: "red" }}>
-          {error}
-        </div>
-      )}
+      {formError && <S.errorMessage>{formError}</S.errorMessage>}
       <S.popNewCard>
         <S.popNewCardContainer>
           <S.popNewCardBlock>
@@ -120,7 +154,11 @@ function PopNewCard() {
                       onChange={handleChange}
                       placeholder="Введите название задачи..."
                       autoFocus
+                      $hasError={!!errors.title}
                     />
+                    {errors.title && (
+                      <S.ErrorMessage>{errors.title}</S.ErrorMessage>
+                    )}
                   </S.formNewBlock>
                   <S.formNewBlock>
                     <S.Subttl htmlFor="textArea">Описание задачи</S.Subttl>
@@ -130,7 +168,11 @@ function PopNewCard() {
                       value={formData.description}
                       onChange={handleChange}
                       placeholder="Введите описание задачи..."
+                      $hasError={!!errors.description}
                     ></S.formNewArea>
+                    {errors.description && (
+                      <S.ErrorMessage>{errors.description}</S.ErrorMessage>
+                    )}
                   </S.formNewBlock>
                 </S.popNewCardForm>
                 <Calendar

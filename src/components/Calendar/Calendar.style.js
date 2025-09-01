@@ -135,7 +135,6 @@ export const calendarCell = styled.div`
   }
   &.disabled {
     color: #ccc;
-    cursor: not-allowed;
 
     &:hover {
       background-color: transparent;

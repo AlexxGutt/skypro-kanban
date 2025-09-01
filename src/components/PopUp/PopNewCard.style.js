@@ -130,6 +130,10 @@ export const formNewInput = styled.input`
   font-size: 14px;
   line-height: 1;
   letter-spacing: -0.14px;
+  margin: 10px 0;
+  border-color: ${(props) =>
+    props.$hasError ? "#ff6d00" : "rgba(148, 166, 190, 0.4)"};
+  background-color: ${(props) => (props.$hasError ? "#fff4e6" : "transparent")};
   &::-moz-placeholder {
     font-weight: 400;
     font-size: 14px;
@@ -157,6 +161,11 @@ export const formNewArea = styled.textarea`
   font-size: 14px;
   line-height: 1;
   letter-spacing: -0.14px;
+  margin: 10px 0;
+  border-color: ${(props) =>
+    props.$hasError ? "#ff6d00" : "rgba(148, 166, 190, 0.4)"};
+  background-color: ${(props) => (props.$hasError ? "#fff4e6" : "transparent")};
+
   &::-moz-placeholder {
     font-weight: 400;
     font-size: 14px;
@@ -237,4 +246,22 @@ export const categoriesTheme = styled.div`
       opacity: 1 !important;
       font-weight: 600;
     `}
+`;
+
+export const errorMessage = styled.div`
+  color: #ff6d00;
+  font-size: 14px;
+  font-weight: 600;
+  margin: 10px 0;
+  padding: 10px;
+  background-color: #fff4e6;
+  border-radius: 8px;
+  border: 1px solid #ffd8b8;
+`;
+
+export const ErrorMessage = styled.div`
+  color: #ff6d00;
+  font-size: 12px;
+  margin-top: 5px;
+  font-weight: 500;
 `;

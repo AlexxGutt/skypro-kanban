@@ -14,6 +14,8 @@ function PopBrowse({ cardId }) {
   const [editedDescription, setEditedDescription] = useState("");
   const [editedStatus, setEditedStatus] = useState("");
   const [selectedDate, setSelectedDate] = useState(new Date());
+  const [descriptionError, setDescriptionError] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
 
   const statusOptions = [
     "Без статуса",
@@ -23,9 +25,35 @@ function PopBrowse({ cardId }) {
     "Готово",
   ];
 
+  const validateDescription = (description) => {
+    if (!description.trim()) {
+      return "Описание задачи обязательно";
+    }
+    if (/^\s+$/.test(description)) {
+      return "Описание не может состоять только из пробелов";
+    }
+    if (description.trim().length < 5) {
+      return "Описание должно содержать минимум 5 символов";
+    }
+    return "";
+  };
+
+  const showError = (message) => {
+    setErrorMessage(message);
+    setTimeout(() => {
+      setErrorMessage("");
+    }, 5000);
+  };
+
   const handleDescriptionChange = (e) => {
-    setEditedDescription(e.target.value);
-    setCard((prev) => ({ ...prev, description: e.target.value }));
+    const value = e.target.value;
+    setEditedDescription(value);
+    setCard((prev) => ({ ...prev, description: value }));
+
+    if (isEdit) {
+      const error = validateDescription(value);
+      setDescriptionError(error);
+    }
   };
 
   const handleDateChange = (date) => {
@@ -34,12 +62,18 @@ function PopBrowse({ cardId }) {
 
   const handleEditClick = () => {
     setIsEdit(true);
+    const error = validateDescription(editedDescription);
+    setDescriptionError(error);
   };
 
   const handleCancelClick = () => {
     setIsEdit(false);
+    setDescriptionError("");
     if (card && card.date) {
       setSelectedDate(parseISO(card.date));
+    }
+    if (card) {
+      setEditedDescription(card.description || "");
     }
   };
 
@@ -60,26 +94,32 @@ function PopBrowse({ cardId }) {
     setEditedDescription(foundCard.description || "");
     setEditedStatus(foundCard.status || "");
 
-    // Устанавливаем дату из карточки
     if (foundCard.date) {
       setSelectedDate(parseISO(foundCard.date));
     }
   }, [tasks, cardId, navigate]);
 
   const handleSave = async () => {
+    const error = validateDescription(editedDescription);
+    if (error) {
+      setDescriptionError(error);
+      return;
+    }
+
     try {
       await editTask(
         cardId,
         card.title,
-        editedDescription,
+        editedDescription.trim(),
         editedStatus,
         card.topic,
         selectedDate
       );
       await getTasks();
       setIsEdit(false);
-    } catch (err) {
-      console.log("Ошибка сохранения", err);
+      setDescriptionError("");
+    } catch {
+      showError("Ошибка при сохранении задачи. Попробуйте еще раз.");
     }
   };
 
@@ -87,8 +127,8 @@ function PopBrowse({ cardId }) {
     try {
       await deleteTask(cardId);
       navigate("/", { replace: true });
-    } catch (err) {
-      console.error("Ошибка удаления", err);
+    } catch {
+      showError("Ошибка при удалении задачи. Попробуйте еще раз.");
       await getTasks();
     }
   };
@@ -99,6 +139,14 @@ function PopBrowse({ cardId }) {
 
   return (
     <>
+      {errorMessage && (
+        <S.ErrorNotification>
+          {errorMessage}
+          <S.CloseErrorButton onClick={() => setErrorMessage("")}>
+            ×
+          </S.CloseErrorButton>
+        </S.ErrorNotification>
+      )}
       <S.popBrowse>
         <S.popBrowseContainer>
           <S.popBbrowseBlock>
@@ -143,7 +191,11 @@ function PopBrowse({ cardId }) {
                       value={editedDescription}
                       onChange={handleDescriptionChange}
                       placeholder="Введите описание задачи"
+                      $hasError={!!descriptionError && isEdit}
                     ></S.formBrowseArea>
+                    {isEdit && descriptionError && (
+                      <S.ErrorMessage>{descriptionError}</S.ErrorMessage>
+                    )}
                   </S.formBrowseBlock>
                 </S.popBrowseForm>
                 <Calendar
@@ -164,7 +216,9 @@ function PopBrowse({ cardId }) {
 
               <S.popBrowseBtnBrowse $type="edit" $isEdit={isEdit}>
                 <S.btnGroup>
-                  <S.btnBg onClick={handleSave}>Сохранить</S.btnBg>
+                  <S.btnBg onClick={handleSave} disabled={!!descriptionError}>
+                    Сохранить
+                  </S.btnBg>
                   <S.btnBor onClick={handleCancelClick}>Отменить</S.btnBor>
                   <S.btnBor onClick={handleDelete}>Удалить задачу</S.btnBor>
                 </S.btnGroup>

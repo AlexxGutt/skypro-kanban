@@ -153,6 +153,10 @@ export const formBrowseArea = styled.textarea`
   letter-spacing: -0.14px;
   margin-top: 14px;
   height: 200px;
+  border-color: ${(props) =>
+    props.$hasError ? "#ff6d00" : "rgba(148, 166, 190, 0.4)"};
+  background-color: ${(props) => (props.$hasError ? "#fff4e6" : "transparent")};
+
   &::-moz-placeholder {
     font-weight: 400;
     font-size: 14px;
@@ -206,6 +210,18 @@ export const btnBg = styled.button`
   border: none;
   outline: none;
   color: #ffffff;
+  color: #ffffff;
+  height: 30px;
+  &:hover {
+    background-color: #33399b;
+  }
+  &:disabled {
+    background-color: #94a6be;
+    cursor: not-allowed;
+    &:hover {
+      background-color: #94a6be;
+    }
+  }
   & a {
     color: #ffffff;
   }
@@ -300,5 +316,64 @@ export const statusOption = styled.div`
 
   &:hover {
     background-color: #eaeef6;
+  }
+`;
+
+export const ErrorMessage = styled.div`
+  color: #ff6d00;
+  font-size: 12px;
+  margin-top: 5px;
+  font-weight: 500;
+  padding: 5px;
+  background-color: #fff4e6;
+  border-radius: 4px;
+  border: 1px solid #ffd8b8;
+`;
+
+export const ErrorNotification = styled.div`
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  background: #ff6d00;
+  color: white;
+  padding: 15px 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  z-index: 10000;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-width: 300px;
+  max-width: 400px;
+  animation: slideIn 0.3s ease-out;
+
+  @keyframes slideIn {
+    from {
+      transform: translateX(100%);
+      opacity: 0;
+    }
+    to {
+      transform: translateX(0);
+      opacity: 1;
+    }
+  }
+`;
+
+export const CloseErrorButton = styled.button`
+  background: none;
+  border: none;
+  color: white;
+  font-size: 20px;
+  cursor: pointer;
+  margin-left: 15px;
+  padding: 0;
+  width: 20px;
+  height: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  &:hover {
+    opacity: 0.8;
   }
 `;
