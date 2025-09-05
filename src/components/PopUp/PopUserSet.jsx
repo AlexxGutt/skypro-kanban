@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { Link } from "react-router-dom";
-import { GlobalStyle } from "../../Global.style";
+import * as S from "./PopUserSet.style";
 function PopUserSet({ isClose }) {
   useEffect(() => {
     const handleClickOutside = (event) => {
@@ -19,21 +19,18 @@ function PopUserSet({ isClose }) {
 
   return (
     <>
-      <GlobalStyle />
-      <div className="header__pop-user-set pop-user-set" id="user-set-target">
-        <a className="close-position" onClick={isClose}>
-          x
-        </a>
-        <p className="pop-user-set__name">{userData.name}</p>
-        <p className="pop-user-set__mail">{userData.login}</p>
-        <div className="pop-user-set__theme">
+      <S.headerPopUserSet>
+        <S.closePosition onClick={isClose}>x</S.closePosition>
+        <S.popUserSetName>{userData.name}</S.popUserSetName>
+        <S.popUserSetMail>{userData.login}</S.popUserSetMail>
+        <S.popUserSetTheme>
           <p>Темная тема</p>
-          <input type="checkbox" className="checkbox" name="checkbox" />
-        </div>
-        <button type="button" className="_hover03">
+          <S.popUserSetInput type="checkbox" name="checkbox" />
+        </S.popUserSetTheme>
+        <S.popUserSetButton>
           <Link to="/exit">Выйти</Link>
-        </button>
-      </div>
+        </S.popUserSetButton>
+      </S.headerPopUserSet>
     </>
   );
 }

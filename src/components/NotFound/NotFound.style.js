@@ -29,38 +29,9 @@ export const homeLink = styled.div`
   text-decoration: none;
   border-radius: 4px;
   font-size: 1rem;
-  transition: background 0.3s;
+  transition: background 0.3s ease;
+
+  &:hover {
+    opacity: 0.8;
+  }
 `;
-
-// .not-found {
-//   display: flex;
-//   flex-direction: column;
-//   align-items: center;
-//   justify-content: center;
-//   height: 100vh;
-//   text-align: center;
-//   font-family: Arial, sans-serif;
-//   background: #f8f9fa;
-//   color: #333;
-// }
-
-// .not-found h1 {
-//   font-size: 5rem;
-//   margin: 0;
-//   color: #6200ea;
-// }
-
-// .home-link {
-//   display: inline-block;
-//   padding: 0.8rem 1.5rem;
-//   background: #6200ea;
-//   color: white;
-//   text-decoration: none;
-//   border-radius: 4px;
-//   font-size: 1rem;
-//   transition: background 0.3s;
-// }
-
-// .home-link:hover {
-//   background: #3700b3;
-// }

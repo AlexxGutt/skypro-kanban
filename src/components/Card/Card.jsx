@@ -1,8 +1,20 @@
 import { Link } from "react-router-dom";
+import { format, parseISO } from "date-fns";
 import * as S from "./Card.style";
+
 function Card({ cardData, columnData }) {
   const textDecor = {
     "Готово": "line-through",
+  };
+
+  const formatDate = (dateString) => {
+    if (!dateString) return "Нет даты";
+    try {
+      return format(parseISO(dateString), "dd.MM.yyyy");
+    } catch (error) {
+      console.error("Ошибка форматирования даты:", error);
+      return dateString;
+    }
   };
 
   return (
@@ -56,7 +68,7 @@ function Card({ cardData, columnData }) {
                   </clipPath>
                 </defs>
               </svg>
-              <p>{cardData.date}</p>
+              <p>{formatDate(cardData.date)}</p>
             </S.cardDate>
           </S.cardContent>
         </S.card>
@@ -64,4 +76,5 @@ function Card({ cardData, columnData }) {
     </>
   );
 }
+
 export default Card;

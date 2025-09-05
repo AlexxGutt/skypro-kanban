@@ -34,6 +34,9 @@ export const popExitBlock = styled.div`
   border-radius: 10px;
   border: 0.7px solid #d4dbe5;
   box-shadow: 0px 4px 67px -12px rgba(0, 0, 0, 0.13);
+  @media only screen and (max-width: 375px) {
+    padding: 50px 20px;
+  }
 `;
 
 export const popExitTll = styled.div`
@@ -53,6 +56,9 @@ export const popExitFormGroup = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
+  @media only screen and (max-width: 375px) {
+    display: block;
+  }
 `;
 
 export const hover01 = css`
@@ -95,7 +101,12 @@ export const popExitExitYes = styled.button`
     align-items: center;
     justify-content: center;
   }
-
+  @media only screen and (max-width: 375px) {
+    width: 100%;
+    height: 40px;
+    margin-right: 0;
+    margin-bottom: 10px;
+  }
   ${hover01}
 `;
 
@@ -121,6 +132,10 @@ export const popExitExitNo = styled.button`
     display: flex;
     align-items: center;
     justify-content: center;
+  }
+  @media only screen and (max-width: 375px) {
+    width: 100%;
+    height: 40px;
   }
   ${hover03}
 `;

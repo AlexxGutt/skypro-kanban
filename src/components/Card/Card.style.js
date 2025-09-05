@@ -2,8 +2,9 @@ import styled from "styled-components";
 
 const topicColor = {
   "Web Design": { backgroundColor: "#ffe4c2", color: "#ff6d00" },
-  "Research": { backgroundColor: "#b4fdd1", color: "#06b16e" },
-  "Copywriting": { backgroundColor: "#e9d4ff", color: "#9a48f1" },
+  Research: { backgroundColor: "#b4fdd1", color: "#06b16e" },
+  Copywriting: { backgroundColor: "#e9d4ff", color: "#9a48f1" },
+  default: { backgroundColor: "#e0e0e0", color: "#666666" },
 };
 
 export const card = styled.div`
@@ -19,6 +20,17 @@ export const card = styled.div`
   & card {
     padding: 2em;
   }
+  @media screen and (max-width: 1200px) {
+    width: 220px;
+    height: 130px;
+    background-color: #ffffff;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: stretch;
+    padding: 15px 13px 19px;
+  }
 `;
 
 export const cardItem = styled.div`
@@ -33,8 +45,16 @@ export const cardTheme = styled.div`
   height: 20px;
   padding: 5px 14px;
   border-radius: 18px;
-  background-color: ${(props) => topicColor[props.$topic].backgroundColor};
-  color: ${(props) => topicColor[props.$topic].color};
+  background-color: ${(props) => {
+    const topic = props.$topic || "default";
+    return (
+      topicColor[topic]?.backgroundColor || topicColor.default.backgroundColor
+    );
+  }};
+  color: ${(props) => {
+    const topic = props.$topic || "default";
+    return topicColor[topic]?.color || topicColor.default.color;
+  }};
   p {
     font-size: 10px;
     font-weight: 600;
